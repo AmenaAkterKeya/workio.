@@ -1,16 +1,15 @@
 
-const getValue = (id) => document.getElementById(id).value;
 
 const handleRegistration = (event) => {
     event.preventDefault();
-
+  
     const username = getValue("username");
     const first_name = getValue("first_name");
     const last_name = getValue("last_name");
     const email = getValue("email");
     const password = getValue("password");
     const confirm_password = getValue("confirm_password");
-
+    const role = getValue("role");
     const info = {
         username,
         first_name,
@@ -18,59 +17,42 @@ const handleRegistration = (event) => {
         email,
         password,
         confirm_password,
+        role,
     };
-
     const preloader = document.getElementById("preloader");
     const errorElement = document.getElementById("error");
-
-    // Reset error message
-    errorElement.style.display = "none";
-
-    // Validate passwords match
-    if (password !== confirm_password) {
-        errorElement.innerText = "Password and confirm password do not match";
-        errorElement.style.display = "block";
-        return;
+    
+    if (password === confirm_password) {
+      preloader.style.display = "flex";
+        document.getElementById("error").innerText = "";
+        if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
+            // Password meets criteria
+            fetch("https://workio-ypph.onrender.com/account/register/", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(info),
+            })
+            .then((res) => res.json())
+            .then((data) =>{
+              preloader.style.display = "none";
+              console.log(data)
+              alert("Verify Your Email Account")
+              window.location.href = "logIn.html";
+            } );
+        } else {
+           
+            document.getElementById("error").innerText =
+                "Password must contain eight characters, at least one letter, one number and one special character.";
+        }
+    } else {
+      
+        document.getElementById("error").innerText =
+            "Password and confirm password do not match";
     }
-
-    // Validate password strength
-    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
-        errorElement.innerText = "Password must contain at least eight characters, including one letter, one number, and one special character.";
-        errorElement.style.display = "block";
-        return;
-    }
-
-    // Show the preloader
-    preloader.style.display = "flex";
-
-    // Make the API request
-    fetch("https://workio-ypph.onrender.com/account/register/", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(info),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            // Hide the preloader
-            preloader.style.display = "none";
-
-
-            console.log(data);
-
-            
-            if (data.success) {
-                alert("Verify Your Email Account");
-                window.location.href = "logIn.html";
-            }
-        })
-        .catch((error) => {
-            // Hide the preloader 
-            preloader.style.display = "none";
-            errorElement.innerText = "An error occurred. Please try again later.";
-            errorElement.style.display = "block";
-            console.error("Error:", error); 
-        });
-};
+  };
+  
+  
+  
 
   
 const handleLogin =  (event) => {
