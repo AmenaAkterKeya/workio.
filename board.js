@@ -489,7 +489,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(even
         console.log('Card updated:', data);
         showAlert('Card updated successfully!', 'success');
         const modal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
-        modal.hide();window.location.reload();
+        modal.hide();
         fetchCards(data.list); // Refresh the cards after editing
     })
     .catch(error => {

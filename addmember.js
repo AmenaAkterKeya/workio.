@@ -1,12 +1,12 @@
-
-const getQueryParams = (param) => {
+// Function to get query parameters from the URL
+const getQueryParam = (param) => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 };
 
-
+// Function to open the "Add Member" modal
 function openAddMemberModal() {
-    const boardId = getQueryParams('id'); 
+    const boardId = getQueryParam('id'); 
     if (boardId) {
         document.getElementById('boardId').value = boardId; 
     } else {
@@ -18,6 +18,7 @@ function openAddMemberModal() {
     clearForm();
 }
 
+// Function to clear the form and error messages
 function clearForm() {
     document.getElementById('memberUsername').value = ''; 
     const errorElement = document.getElementById("error");
@@ -25,33 +26,38 @@ function clearForm() {
     errorElement.style.display = 'none'; 
 }
 
+// Function to show an error message
 function showError(message) {
     const errorElement = document.getElementById("error");
     errorElement.textContent = message;
     errorElement.style.display = 'block'; 
-    
-   
+
+    // Hide the error message after 3 seconds
     setTimeout(() => {
         errorElement.style.display = 'none';
     }, 3000); 
 }
 
+// Event listener for when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-   
+
+    // Attach the openAddMemberModal function to the modal trigger
     const modalTrigger = document.querySelector('[data-bs-toggle="modal"]');
     if (modalTrigger) {
         modalTrigger.addEventListener('click', openAddMemberModal);
     }
 
-
+    // Handle the form submission for adding a member
     document.getElementById('addMemberForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         
-        const boardId = document.getElementById('boardId').value;
+        const boardId = getQueryParam('id'); 
         const memberUsername = document.getElementById('memberUsername').value;
         const token = localStorage.getItem("token");
 
-        
+        console.log('Token:', token);
+        console.log('Board ID:', boardId);
+
         clearForm();
 
         try {
@@ -65,10 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const responseBody = await response.json();
+            console.log('Response:', responseBody);
 
             if (!response.ok) {
-                
-                $('#addMemberModal').modal('hide');
+                console.error('Error Response:', responseBody);
                 if (Array.isArray(responseBody)) {
                     showError(responseBody.join(', ')); 
                 } else {
@@ -77,16 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-           
+            // Show success message
             showError('Member added successfully!');
-            
-            
+
+            // Hide the modal
             $('#addMemberModal').modal('hide');
+
+            // Reload the current page while keeping the board ID in the URL
+            window.location.href = `http://127.0.0.1:5500/board.html?id=${boardId}`;
+
         } catch (error) {
             console.error('Error adding member:', error);
-            
-            $('#addMemberModal').modal('hide');
             showError('Failed to add member. Please try again.');
+            $('#addMemberModal').modal('hide');
         }
     });
 });
