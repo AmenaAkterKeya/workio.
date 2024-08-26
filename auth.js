@@ -1,58 +1,56 @@
+// Define getValue function first
+const getValue = (id) => {
+    const value = document.getElementById(id).value;
+    return value;
+};
 
-
+// Then define handleRegistration function
 const handleRegistration = (event) => {
     event.preventDefault();
-  
+
     const username = getValue("username");
     const first_name = getValue("first_name");
     const last_name = getValue("last_name");
     const email = getValue("email");
     const password = getValue("password");
     const confirm_password = getValue("confirm_password");
-    const role = getValue("role");
+    
     const info = {
         username,
         first_name,
         last_name,
         email,
         password,
-        confirm_password,
-        role,
+        confirm_password
     };
+    
     const preloader = document.getElementById("preloader");
     const errorElement = document.getElementById("error");
     
     if (password === confirm_password) {
-      preloader.style.display = "flex";
-        document.getElementById("error").innerText = "";
+        preloader.style.display = "flex";
+        errorElement.innerText = "";
+        
         if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
-            // Password meets criteria
             fetch("https://workio-ypph.onrender.com/account/register/", {
                 method: "POST",
-                headers: { "content-type": "application/json" },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(info),
             })
             .then((res) => res.json())
-            .then((data) =>{
-              preloader.style.display = "none";
-              console.log(data)
-              alert("Verify Your Email Account")
-              window.location.href = "logIn.html";
-            } );
+            .then((data) => {
+                preloader.style.display = "none";
+                alert("Verify Your Email Account");
+                window.location.href = "logIn.html";
+            });
         } else {
-           
-            document.getElementById("error").innerText =
-                "Password must contain eight characters, at least one letter, one number and one special character.";
+            errorElement.innerText =
+                "Password must contain eight characters, at least one letter, one number, and one special character.";
         }
     } else {
-      
-        document.getElementById("error").innerText =
-            "Password and confirm password do not match";
+        errorElement.innerText = "Password and confirm password do not match";
     }
-  };
-  
-  
-  
+};
 
   
 const handleLogin =  (event) => {
