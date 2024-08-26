@@ -89,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide the modal
             $('#addMemberModal').modal('hide');
 
-            // Reload the current page while keeping the board ID in the URL
-            window.location.href = `http://127.0.0.1:5500/board.html?id=${boardId}`;
+          
 
         } catch (error) {
             console.error('Error adding member:', error);
