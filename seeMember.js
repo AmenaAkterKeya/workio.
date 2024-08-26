@@ -17,7 +17,7 @@ function getQueryParams(param) {
 function fetchBoardMembers(boardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`http://127.0.0.1:8000/board/board/${boardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,
@@ -25,13 +25,16 @@ function fetchBoardMembers(boardId) {
         }
     })
     .then(response => {
+        console.log('Response status:', response.status); // Log status code
         if (!response.ok) {
-            throw new Error('Network response was not ok.');
+            return response.text().then(text => {
+                throw new Error(`Network response was not ok. Status: ${response.status}, Message: ${text}`);
+            });
         }
         return response.json();
     })
     .then(data => {
-        console.log(data); // Log the response to inspect the data structure
+        console.log('Response data:', data); // Log the response to inspect the data structure
         if (data && data.members) {
             displayBoardMembers(data.members);
         } else {
@@ -68,8 +71,8 @@ function displayBoardMembers(members) {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <th scope="row">${index + 1}</th>
-                <td>${member.first_name} ${member.last_name}</td>
-                <td>${member.email}</td>
+                <td>${member.first_name || 'No first name available'} ${member.last_name || 'No last name available'}</td>
+                <td>${member.email || 'No email available'}</td>
                 <td>
                     <a href="board.html?id=${member.id}" class="btn btn-info">Board</a>
                 </td>
