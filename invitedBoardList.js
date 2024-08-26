@@ -231,6 +231,7 @@ document.getElementById('editListForm').addEventListener('submit', function(even
         showAlert('List item updated successfully!', 'success');
         const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
         modal.hide();
+        window.location.reload();
         fetchBoardMembers(boardId); 
     })
     .catch(error => {
@@ -307,7 +308,7 @@ document.getElementById('addListForm').addEventListener('submit', function(event
     .then(data => {
         console.log('Parsed Response Data:', data); 
         if (data && data.id) {
-            location.reload();
+            window.location.reload();
         } else {
             console.error('Error creating list:', data);
         }
@@ -378,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data && data.id) {
              
-                location.reload();
+                window.location.reload();
             } else {
                 console.error('Error creating list:', data);
             }

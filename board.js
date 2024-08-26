@@ -231,6 +231,7 @@ document.getElementById('editListForm').addEventListener('submit', function(even
         showAlert('List item updated successfully!', 'success');
         const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
         modal.hide();
+        window.location.reload();
         fetchBoardMembers(boardId); 
     })
     .catch(error => {
@@ -307,7 +308,7 @@ document.getElementById('addListForm').addEventListener('submit', function(event
     .then(data => {
         console.log('Parsed Response Data:', data); 
         if (data && data.id) {
-            location.reload();
+            window.location.reload();
         } else {
             console.error('Error creating list:', data);
         }
@@ -378,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (data && data.id) {
              
-                location.reload();
+                window.location.reload();
             } else {
                 console.error('Error creating list:', data);
             }
@@ -433,7 +434,7 @@ document.getElementById('addCardForm').addEventListener('submit', function(event
         console.log('Card added:', data);
         showAlert('Card added successfully!', 'success');
         const modal = bootstrap.Modal.getInstance(document.getElementById('cardModal'));
-        modal.hide();
+        modal.hide();window.location.reload();
         fetchBoardMembers(getQueryParams('id'));
     })
     .catch(error => {
@@ -488,7 +489,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(even
         console.log('Card updated:', data);
         showAlert('Card updated successfully!', 'success');
         const modal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
-        modal.hide();
+        modal.hide();window.location.reload();
         fetchCards(data.list); // Refresh the cards after editing
     })
     .catch(error => {
