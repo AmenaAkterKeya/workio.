@@ -13,7 +13,7 @@
 <body>
     <div class='dashboard'>
         <div class="dashboard-nav">
-            <header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
+            <header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="profile.html"
                                                                                        class="brand-logo">  <h2 style="
                                                                                        color: white;
                                                                                    ">Workio<span style="
@@ -172,12 +172,17 @@
                             <!-- Dynamically populate options with members -->
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="cardDueDate" class="form-label">Due Date</label>
+                        <input type="date" class="form-control" id="cardDueDate">
+                    </div>
                     <button type="submit" class="btn btn-primary">Add Card</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
  <!-- Edit Card Modal -->
 <div class="modal fade" id="editCardModal" tabindex="-1" aria-labelledby="editCardModalLabel" aria-hidden="true">
@@ -219,6 +224,10 @@
                         <select class="form-select" id="editAssignedMember">
                             <!-- Options will be populated by JavaScript -->
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCardDueDate" class="form-label">Due Date</label>
+                        <input type="date" class="form-control" id="editCardDueDate">
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </form>

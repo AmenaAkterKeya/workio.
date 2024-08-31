@@ -186,7 +186,13 @@ function fetchCards(listId) {
                                 border-radius: 4px;
                                 text-transform: capitalize;
                                 margin-left: 4px;
-                            ">${assignedMemberUsernames}</span></small>
+                            ">${assignedMemberUsernames}</span>  <span> | </span> Due Date: <span style="
+                                background-color: #b8ffef;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${card.due_date}</span> </small>
                         </div>
                         <div>
                             <div class="dropdown">
@@ -430,14 +436,15 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
             const cardPriority = document.getElementById('cardPriority').value;
             const cardStatus = document.getElementById('cardStatus').value;
             const assignedMember = document.getElementById('assignedMember').value;
-            
+            const cardDueDate = document.getElementById('cardDueDate').value;
             const cardData = {
                 title: cardTitle,
                 content: cardContent,
                 list: parseInt(listId),
                 priority: cardPriority,
                 status: cardStatus,
-                assigned_members: [parseInt(assignedMember)]
+                assigned_members: [parseInt(assignedMember)],
+                due_date: cardDueDate
             };
         
             fetch(`https://workio-ypph.onrender.com/board/list/${listId}/card/`, {
@@ -480,6 +487,7 @@ function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, ca
     document.getElementById('editCardContent').value = cardContent;
     document.getElementById('editCardPriority').value = cardPriority;
     document.getElementById('editCardStatus').value = cardStatus;
+    document.getElementById('editCardDueDate').value = cardDueDate; 
 
     const validAssignedMembers = Array.isArray(assignedMembers) ? assignedMembers : [];
 
@@ -541,16 +549,17 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
     const listId = document.getElementById('listId').value;
     const priority = document.getElementById('editCardPriority').value;
     const status = document.getElementById('editCardStatus').value;
+    const dueDate = document.getElementById('editCardDueDate').value; 
     const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value)); // Ensure this is an array of integers
 
-    console.log('Card ID:', cardId);
-    console.log('Title:', title);
-    console.log('Content:', content);
-    console.log('List ID:', listId);
-    console.log('Priority:', priority);
-    console.log('Status:', status);
-    console.log('Assigned Members:', assignedMembers);
-
+    // console.log('Card ID:', cardId);
+    // console.log('Title:', title);
+    // console.log('Content:', content);
+    // console.log('List ID:', listId);
+    // console.log('Priority:', priority);
+    // console.log('Status:', status);
+    // console.log('Assigned Members:', assignedMembers);
+    // console.log('Due Date:', dueDate);
     if (!listId) {
         showAlert('List ID is required.', 'error');
         return;
@@ -558,7 +567,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/cards/${cardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -570,7 +579,8 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
             list: parseInt(listId),
             priority: priority,
             status: status,
-            assign: assignedMembers 
+            assign: assignedMembers ,
+            due_date: dueDate, 
         })
     })
     .then(response => {
@@ -599,7 +609,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 function deleteItemm(cardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/cards/${cardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Token ${token}`,

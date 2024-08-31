@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td>${member.username || 'No username available'}</td>
                             <td>${member.email || 'No email available'}</td>
                             <td>
-                                <a href="board.html?id=${item.id}" class="btn btn-primary">${item.name || 'No name available'}</a>
+                                <a href="board.html?id=${item.id}" class="btn btn-outline-dark mem_btn">${item.name || 'No name available'}</a>
                             </td>
                         `;
                         tableBody.appendChild(row);
