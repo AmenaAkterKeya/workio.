@@ -2,6 +2,8 @@ const getValue = (id) => {
     const value = document.getElementById(id).value;
     return value;
 };
+
+// Then define handleRegistration function
 const handleRegistration = (event) => {
     event.preventDefault();
 
@@ -11,23 +13,23 @@ const handleRegistration = (event) => {
     const email = getValue("email");
     const password = getValue("password");
     const confirm_password = getValue("confirm_password");
-
+    
     const info = {
         username,
         first_name,
         last_name,
         email,
         password,
-        confirm_password,
+        confirm_password
     };
-
+    
     const preloader = document.getElementById("preloader");
     const errorElement = document.getElementById("error");
-
+    
     if (password === confirm_password) {
         preloader.style.display = "flex";
         errorElement.innerText = "";
-
+        
         if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
             fetch("https://workio-ypph.onrender.com/account/register/", {
                 method: "POST",
@@ -39,20 +41,16 @@ const handleRegistration = (event) => {
                 preloader.style.display = "none";
                 alert("Verify Your Email Account");
                 window.location.href = "logIn.html";
-            })
-            .catch((error) => {
-                preloader.style.display = "none";
-                console.error("Registration Error:", error);
-                errorElement.innerText = "An error occurred. Please try again later.";
             });
         } else {
-            preloader.style.display = "none";
-            errorElement.innerText = "Password must contain eight characters, at least one letter, one number, and one special character.";
+            errorElement.innerText =
+                "Password must contain eight characters, at least one letter, one number, and one special character.";
         }
     } else {
         errorElement.innerText = "Password and confirm password do not match";
     }
 };
+
 const handleLogin = (event) => {
     event.preventDefault();
 
