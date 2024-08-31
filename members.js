@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+            console.log('API response data:', data); // Log the response data
+
             const tableBody = document.getElementById('table');
             const noDataDiv = document.getElementById('nodata_instructor');
             const theadDark = document.getElementById('thead-dark');
@@ -31,9 +33,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let totalMembers = 0;
             let totalBoards = data.length;
+            let rowNumber = 1; // Initialize row number counter
 
             data.forEach(item => {
-                totalMembers += item.members.length;
+                // Ensure 'members' property exists and is an array
+                if (Array.isArray(item.members)) {
+                    totalMembers += item.members.length;
+
+                    item.members.forEach(member => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <th scope="row">${rowNumber++}</th> <!-- Use rowNumber variable -->
+                            <td>${member.username || 'No username available'}</td>
+                            <td>${member.email || 'No email available'}</td>
+                            <td>
+                                <a href="board.html?id=${item.id}" class="btn btn-primary">${item.name || 'No name available'}</a>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    console.warn('No members array found for item:', item);
+                }
             });
 
             memberCount.textContent = `Members (${totalMembers})`;
@@ -42,22 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.length > 0) {
                 noDataDiv.style.display = 'none';
                 theadDark.style.display = 'table-header-group';
-
-                data.forEach((item, index) => {
-                    // Assuming 'members' is an array of member objects
-                    item.members.forEach(member => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <th scope="row">${index + 1}</th>
-                            <td>${member.username || 'No username available'}</td>
-                            <td>${member.email || 'No email available'}</td>
-                            <td>
-                                <a href="board.html?id=${item.id}" class="btn btn-primary">${item.name}</a>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                });
             } else {
                 noDataDiv.style.display = 'flex';
                 noDataDiv.style.justifyContent = 'center';

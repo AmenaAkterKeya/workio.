@@ -52,14 +52,12 @@ function displayBoards(boards) {
         const boardItem = document.createElement('li');
         boardItem.className = 'col-lg-3 col-md-4 col-sm-4 mb-3 d-flex align-items-stretch';
         boardItem.innerHTML = `
-             <a href="seeMember.html?id=${board.id}" class="card board" style="background-color: ${board.color}; color: ${textColor}" >
-            <span style="
-    font-size: 20px;
-    font-weight: 500;
-        margin-top: -72px;
-        display:flex;
-">${board.name.slice(0,20)}..</span>
-          </a>
+           <a href="seeMember.html?id=${board.id}" class="card board" style="background-color: ${board.color}; color: ${textColor}">
+                      <span style="font-size: 20px; font-weight: 500; display: flex;">
+                          ${board.name.slice(0, 20)}..
+                      </span>
+                      <div style="font-weight: 500; display: flex;">Members: ${board.members_num}</div>
+                  </a>
         `;
         boardList.appendChild(boardItem);
     });

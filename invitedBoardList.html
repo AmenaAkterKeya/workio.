@@ -52,8 +52,8 @@
   ></div>
                 <div class='container'>
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div><p class="board_icon dashboard-nav-item"><i class="fa-solid fa-user"></i> <span>Your boards</span></p></div>
-                        <div style="display: flex; align-items: center; cursor: not-allowed;" 
+                        <div><p class="board_icon dashboard-nav-item"><i class="fa-solid fa-user" style="color: black !important;"></i> <span>Your boards</span></p></div>
+                        <div style="display: none" 
                         data-bs-toggle="modal" data-bs-target="#addMemberModal" 
                          onclick="return false;">
                        <span style="font-size: 20px; font-weight: 500;">Add Member</span>
@@ -88,7 +88,7 @@
                            
                     
                             <!-- Form Column -->
-                            <div class="col-4" id="formContainer" style=" padding: 10px;">
+                            <div class="col-4" id="formContainer" style=" padding: 10px; display:none;">
                                 <form id="addListForm" style="margin-top: 12px;">
                                     <label class="form-label" for="addList" style="
                                     font-size: 20px;
@@ -169,6 +169,12 @@
                             <option value="completed">Done</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="assignedMember" class="form-label">Assigned Member</label>
+                        <select class="form-select" id="assignedMember">
+                            <!-- Dynamically populate options with members -->
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Add Card</button>
                 </form>
             </div>
@@ -176,7 +182,7 @@
     </div>
 </div>
 
-  <!-- Edit Card Modal -->
+ <!-- Edit Card Modal -->
 <div class="modal fade" id="editCardModal" tabindex="-1" aria-labelledby="editCardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -186,7 +192,7 @@
             </div>
             <div class="modal-body">
                 <form id="editCardForm">
-                    <input type="hidden" id="editCardId">
+                    <input type="hidden" id="editCardId" />
                     <div class="mb-3">
                         <label for="editCardTitle" class="form-label">Title</label>
                         <input type="text" class="form-control" id="editCardTitle" required>
@@ -202,7 +208,6 @@
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
                         </select>
-                        
                     </div>
                     <div class="mb-3">
                         <label for="editCardStatus" class="form-label">Status</label>
@@ -211,7 +216,12 @@
                             <option value="in_progress">In Progress</option>
                             <option value="completed">Done</option>
                         </select>
-                      
+                    </div>
+                    <div class="mb-3">
+                        <label for="editAssignedMember" class="form-label">Assign Member</label>
+                        <select class="form-select" id="editAssignedMember">
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </form>
@@ -219,6 +229,7 @@
         </div>
     </div>
 </div>
+
 
   
                         </div>

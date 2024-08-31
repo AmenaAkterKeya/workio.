@@ -99,17 +99,25 @@ function fetchBoardMembers(boardId) {
 
 function fetchCards(listId) {
     const token = localStorage.getItem("token");
-
-    fetch(`https://workio-ypph.onrender.com/board/card/?search=${listId}`, {
+    console.log(token)
+    fetch(`https://workio-ypph.onrender.com/board/cards/?search=${listId}`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
     })
     .then(response => response.json())
     .then(data => {
-        const cardsContainer = document.getElementById(`cardsContainer${listId}`);
+        console.log('Fetched cards data:', data); // Debugging line
 
-        if (data.length > 0) {
+        const cardsContainer = document.getElementById(`cardsContainer${listId}`);
+        if (!cardsContainer) {
+            console.error('Cards container not found');
+            return;
+        }
+
+        cardsContainer.innerHTML = ''; // Clear existing cards
+
+        if (Array.isArray(data) && data.length > 0) {
             data.forEach(card => {
                 const cardElement = document.createElement('div');
                 cardElement.className = 'card';
@@ -119,50 +127,65 @@ function fetchCards(listId) {
                 cardElement.style.border = '1px solid #ddd';
                 cardElement.style.borderRadius = '5px';
 
+                // Loop through assigned members and concatenate usernames
+                let assignedMemberUsernames = 'Not Assigned';
+                if (Array.isArray(card.assigned_member) && card.assigned_member.length > 0) {
+                    assignedMemberUsernames = card.assigned_member.map(member => member.username).join(', ');
+                }
+
                 cardElement.innerHTML = `
-                <div style="
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-">
-                 <div><h5 style="font-weight: bold;">${card.title}</h5>
-                    <small style="
-    font-size: 15px;
-">Priority: <span style="
-    background-color: #ffcbb8;
-    padding: 4px;
-    border-radius: 4px;
-    text-transform: capitalize;
-        margin-left: 4px;
-    margin-right: 10px;
-">${card.priority} </span> <span> | </span> Status: <span style="
-    background-color: #b8ffef;
-    padding: 4px;
-    border-radius: 4px;
-    text-transform: capitalize;
-       margin-left: 4px;
-">${card.status}</span></small></div>
-                    <div><div class="dropdown">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                    ">
+                        <div>
+                            <h5 style="font-weight: bold;">${card.title}</h5>
+                            <small style="
+                                font-size: 15px;
+                            ">Priority: <span style="
+                                background-color: #ffcbb8;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                                margin-right: 10px;
+                            ">${card.priority}</span> 
+                            <span> | </span> Status: <span style="
+                                background-color: #b8ffef;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${card.status}</span> 
+                            <span> | </span> Assign: <span style="
+                                background-color: #ffcbb8;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${assignedMemberUsernames}</span></small>
+                        </div>
+                        <div>
+                            <div class="dropdown">
                                 <button class="btn" type="button" id="dropdownMenuButton${card.id}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${card.id}">
-                                    <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${card.priority}', '${card.status}')">
-                                        <a class="dropdown-item edit-icon" href="#">
-                                            <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
-                                        </a>
-                                    </li>
+                                   <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${listId}', '${card.priority}', '${card.status}')">
+    <a class="dropdown-item edit-icon" href="#">
+        <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
+    </a>
+</li>
                                     <li onclick="deleteItemm('${card.id}')">
                                         <a class="dropdown-item delete-icon" href="#">
                                             <i class="fa-solid fa-delete-left" style="cursor: pointer; margin-right: 10px;"></i>Delete
                                         </a>
                                     </li>
-                                   
                                 </ul>
                             </div>
-                            </div>
-                            </div>
-                   
+                        </div>
+                    </div>
                 `;
 
                 cardsContainer.appendChild(cardElement);
@@ -177,6 +200,7 @@ function fetchCards(listId) {
         console.error('Error fetching cards:', error);
     });
 }
+
 
 function showCardModal(listId) {
     const modal = new bootstrap.Modal(document.getElementById('cardModal'));
