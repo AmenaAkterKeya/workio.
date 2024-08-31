@@ -75,7 +75,7 @@ function fetchBoardMembers(boardId) {
                             <p style="font-size: 24px; font-weight: 500;">${list.title}</p>
                         </div>
                         <div>
-                            <div class="dropdown">
+                            <div class="dropdown" style="display:none">
                                 <button class="btn" type="button" id="dropdownMenuButton${list.id}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
@@ -128,7 +128,7 @@ function fetchCards(listId) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Fetched cards data:', data); // Debugging line
+        // console.log('Fetched cards data:', data); // Debugging line
 
         const cardsContainer = document.getElementById(`cardsContainer${listId}`);
         if (!cardsContainer) {
@@ -198,7 +198,7 @@ function fetchCards(listId) {
         <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
     </a>
 </li>
-                                    <li onclick="deleteItemm('${card.id}')">
+                                    <li onclick="deleteItemm('${card.id}')" style="display:none">
                                         <a class="dropdown-item delete-icon" href="#">
                                             <i class="fa-solid fa-delete-left" style="cursor: pointer; margin-right: 10px;"></i>Delete
                                         </a>
