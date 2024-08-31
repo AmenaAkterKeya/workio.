@@ -1,3 +1,7 @@
+const getValue = (id) => {
+    const value = document.getElementById(id).value;
+    return value;
+};
 const handleRegistration = (event) => {
     event.preventDefault();
 
