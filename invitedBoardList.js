@@ -13,18 +13,15 @@ function getQueryParams(param) {
     return urlParams.get(param);
 }
 function fetchBoardDetails(boardId) {
-    
     const token = localStorage.getItem("token");
-    
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/boards/${boardId}/`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Data received:', data); // Debugging line
         const boardNameElement = document.getElementById('boardName');
         if (boardNameElement) {
             boardNameElement.textContent = data.name;
