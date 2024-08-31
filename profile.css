@@ -501,4 +501,7 @@ h1, .h1 {
     width: 95%;
     margin-top: -22px;
   } 
+  .btn {
+    font-size: 0.7rem !important;
+  }
 }

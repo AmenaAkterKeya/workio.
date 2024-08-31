@@ -1,12 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
     const boardId = getQueryParams('id');
     if (boardId) {
+        fetchBoardDetails(boardId);
         fetchBoardMembers(boardId);
     } else {
         console.error('Board ID is missing in the URL.');
     }
 });
+function fetchBoardDetails(boardId) {
+    const token = localStorage.getItem("token");
 
+    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const boardNameElement = document.getElementById('boardName');
+        if (boardNameElement) {
+            boardNameElement.textContent = data.name;
+        } else {
+            console.error('Board name element not found.');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching board details:', error);
+    });
+}
 function getQueryParams(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
@@ -320,7 +341,7 @@ document.getElementById('addListForm').addEventListener('submit', function(event
         })
     })
     .then(response => {
-        console.log('API Response:', response); 
+        // console.log('API Response:', response); 
         if (!response.ok) {
             return response.json().then(errorData => {
                 console.error('Error details:', errorData);
@@ -330,7 +351,7 @@ document.getElementById('addListForm').addEventListener('submit', function(event
         return response.json();
     })
     .then(data => {
-        console.log('Parsed Response Data:', data); 
+        // console.log('Parsed Response Data:', data); 
         if (data && data.id) {
             window.location.reload();
         } else {

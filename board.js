@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const boardId = getQueryParams('id');
     if (boardId) {
+        fetchBoardDetails(boardId);
         fetchBoardMembers(boardId);
     } else {
         console.error('Board ID is missing in the URL.');
@@ -11,7 +12,27 @@ function getQueryParams(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
+function fetchBoardDetails(boardId) {
+    const token = localStorage.getItem("token");
 
+    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const boardNameElement = document.getElementById('boardName');
+        if (boardNameElement) {
+            boardNameElement.textContent = data.name;
+        } else {
+            console.error('Board name element not found.');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching board details:', error);
+    });
+}
 function fetchBoardMembers(boardId) {
     const token = localStorage.getItem("token");
 
@@ -82,7 +103,8 @@ function fetchBoardMembers(boardId) {
                 `;
 
                 listContainer.appendChild(listElement);
-                fetchCards(list.id); // Fetch and display cards for this list
+                fetchCards(list.id); 
+                
             });
 
             listContainer.style.display = 'block';
