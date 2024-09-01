@@ -559,7 +559,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
         
             const token = localStorage.getItem("token");
         
-            fetch(`https://workio-ypph.onrender.com/board/card/card/${cardId}/`, {
+            fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
