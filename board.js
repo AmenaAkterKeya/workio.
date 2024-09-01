@@ -54,7 +54,7 @@ function fetchBoardMembers(boardId) {
         listContainer.innerHTML = '';
 
         const heading = document.createElement('h4');
-        heading.textContent = 'Lists';
+        heading.textContent = 'To Do';
         heading.style.fontSize = '28px';
         heading.style.fontWeight = '600';
         listContainer.appendChild(heading);
@@ -200,7 +200,7 @@ function fetchCards(listId) {
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${card.id}">
-                                   <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${listId}', '${card.priority}', '${card.status}')">
+                                   <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${listId}', '${card.priority}', '${card.status}', '${card.due_date}')">
     <a class="dropdown-item edit-icon" href="#">
         <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
     </a>
@@ -474,137 +474,139 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
 
 
 
-function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, assignedMembers = []) {
-    console.log('Assigned Members:', assignedMembers); 
-    console.log('List ID in showEdittModal:', listId); 
-
-    // Set the card ID and list ID
-    document.getElementById('editCardId').value = cardId;
-    document.getElementById('listId').value = listId; 
-
- 
-    document.getElementById('editCardTitle').value = cardTitle;
-    document.getElementById('editCardContent').value = cardContent;
-    document.getElementById('editCardPriority').value = cardPriority;
-    document.getElementById('editCardStatus').value = cardStatus;
-    document.getElementById('editCardDueDate').value = cardDueDate; 
-
-    const validAssignedMembers = Array.isArray(assignedMembers) ? assignedMembers : [];
-
-    const assignedMemberIds = validAssignedMembers.map(member => member.id);
-
-    fetchMembers(assignedMemberIds);
-
-    const editCardModal = new bootstrap.Modal(document.getElementById('editCardModal'));
-    editCardModal.show();
-}
-
-
-function fetchMembers(assignedMembers = []) {
-    const token = localStorage.getItem("token");
-    const boardId = getQueryParams('id');
-
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
-        headers: {
-            'Authorization': `Token ${token}`,
+        function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, cardDueDate, assignedMembers = []) {
+            console.log('Due Date:', cardDueDate);  // Debugging: Check the due date value
+        
+            // Set the card ID and list ID
+            document.getElementById('editCardId').value = cardId;
+            document.getElementById('listId').value = listId; 
+        
+            // Assign values to the fields
+            document.getElementById('editCardTitle').value = cardTitle;
+            document.getElementById('editCardContent').value = cardContent;
+            document.getElementById('editCardPriority').value = cardPriority;
+            document.getElementById('editCardStatus').value = cardStatus;
+            document.getElementById('editCardDueDate').value = cardDueDate; // Set the due date
+        
+            // Process assigned members
+            const validAssignedMembers = Array.isArray(assignedMembers) ? assignedMembers : [];
+            const assignedMemberIds = validAssignedMembers.map(member => member.id);
+            fetchMembers(assignedMemberIds);
+        
+            // Show the modal
+            const editCardModal = new bootstrap.Modal(document.getElementById('editCardModal'));
+            editCardModal.show();
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Fetched board data:', data); 
-
-        const memberSelect = document.getElementById('editAssignedMember');
-        memberSelect.innerHTML = '';
-
-       
-        if (data.members) {
-            data.members.forEach(member => {
-                const option = document.createElement('option');
-                option.value = member.id;
-                option.textContent = member.username; 
-
-                // Check if the assigned member's ID matches
-                if (assignedMembers.includes(member.id)) {
-                    option.selected = true;
+        
+        
+        
+        function fetchMembers(assignedMembers = []) {
+            const token = localStorage.getItem("token");
+            const boardId = getQueryParams('id');
+        
+            fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+                headers: {
+                    'Authorization': `Token ${token}`,
                 }
-
-                memberSelect.appendChild(option);
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched board data:', data); 
+        
+                const memberSelect = document.getElementById('editAssignedMember');
+                memberSelect.innerHTML = '';
+        
+               
+                if (data.members) {
+                    data.members.forEach(member => {
+                        const option = document.createElement('option');
+                        option.value = member.id;
+                        option.textContent = member.username; 
+        
+                        // Check if the assigned member's ID matches
+                        if (assignedMembers.includes(member.id)) {
+                            option.selected = true;
+                        }
+        
+                        memberSelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Members field not found in API response.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching members:', error);
             });
-        } else {
-            console.error('Members field not found in API response.');
         }
-    })
-    .catch(error => {
-        console.error('Error fetching members:', error);
-    });
-}
-
-
-document.getElementById('editCardForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const cardId = document.getElementById('editCardId').value;
-    const title = document.getElementById('editCardTitle').value;
-    const content = document.getElementById('editCardContent').value;
-    const listId = document.getElementById('listId').value;
-    const priority = document.getElementById('editCardPriority').value;
-    const status = document.getElementById('editCardStatus').value;
-    const dueDate = document.getElementById('editCardDueDate').value; 
-    const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value)); // Ensure this is an array of integers
-
-    // console.log('Card ID:', cardId);
-    // console.log('Title:', title);
-    // console.log('Content:', content);
-    // console.log('List ID:', listId);
-    // console.log('Priority:', priority);
-    // console.log('Status:', status);
-    // console.log('Assigned Members:', assignedMembers);
-    // console.log('Due Date:', dueDate);
-    if (!listId) {
-        showAlert('List ID is required.', 'error');
-        return;
-    }
-
-    const token = localStorage.getItem("token");
-
-    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${token}`,
-        },
-        body: JSON.stringify({
-            title: title,
-            content: content,
-            list: parseInt(listId),
-            priority: priority,
-            status: status,
-            assign: assignedMembers ,
-            due_date: dueDate, 
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(error => { throw error; });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Card updated:', data);
-
-        const editCardModal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
-        editCardModal.hide();
-
-        showAlert('Card updated successfully!', 'success');
-
-        fetchCards(listId);
-    })
-    .catch(error => {
-        console.error('Error updating card:', error);
-        showAlert('Error updating card. Please try again.', 'error');
-    });
-});
-
+        
+        
+        document.getElementById('editCardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        
+            const cardId = document.getElementById('editCardId').value;
+            const title = document.getElementById('editCardTitle').value;
+            const content = document.getElementById('editCardContent').value;
+            const listId = document.getElementById('listId').value;
+            const priority = document.getElementById('editCardPriority').value;
+            const status = document.getElementById('editCardStatus').value;
+            const dueDate = document.getElementById('editCardDueDate').value; 
+            const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value));
+        
+            if (!listId) {
+                showAlert('List ID is required.', 'error');
+                return;
+            }
+        
+            const token = localStorage.getItem("token");
+        
+            fetch(`https://workio-ypph.onrender.com/board/card/card/${cardId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content,
+                    list: parseInt(listId),
+                    priority: priority,
+                    status: status,
+                    assign: assignedMembers,
+                    due_date: dueDate,
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw error; });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Card updated:', data);
+        
+                const editCardModal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
+                editCardModal.hide();
+        
+                showAlert('Card updated successfully!', 'success');
+        
+                fetchCards(listId);
+            })
+            .catch(error => {
+               
+                const editCardModal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
+                if (editCardModal) {
+                    editCardModal.hide();
+                }
+        
+        
+                if (error.detail) {
+                    showAlert('You do not have permission to edit this card.');
+                } else {
+                    showAlert('Error updating card. Please try again.', 'error');
+                }
+            });
+        });
+        
 
 function deleteItemm(cardId) {
     const token = localStorage.getItem("token");
