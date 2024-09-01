@@ -591,16 +591,8 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
     const priority = document.getElementById('editCardPriority').value;
     const status = document.getElementById('editCardStatus').value;
     const dueDate = document.getElementById('editCardDueDate').value; 
-    const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value)); // Ensure this is an array of integers
+    const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value));
 
-    // console.log('Card ID:', cardId);
-    // console.log('Title:', title);
-    // console.log('Content:', content);
-    // console.log('List ID:', listId);
-    // console.log('Priority:', priority);
-    // console.log('Status:', status);
-    // console.log('Assigned Members:', assignedMembers);
-    // console.log('Due Date:', dueDate);
     if (!listId) {
         showAlert('List ID is required.', 'error');
         return;
@@ -608,7 +600,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/card/card/${cardId}/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -620,8 +612,8 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
             list: parseInt(listId),
             priority: priority,
             status: status,
-            assign: assignedMembers ,
-            due_date: dueDate, 
+            assign: assignedMembers,
+            due_date: dueDate,
         })
     })
     .then(response => {
@@ -642,9 +634,15 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
     })
     .catch(error => {
         console.error('Error updating card:', error);
-        showAlert('Error updating card. Please try again.', 'error');
+
+        if (error.detail) {
+            showAlert(error.detail, 'error');
+        } else {
+            showAlert('Error updating card. Please try again.', 'error');
+        }
     });
 });
+
 
 
 function deleteItemm(cardId) {
