@@ -54,7 +54,7 @@ function fetchBoardMembers(boardId) {
         listContainer.innerHTML = '';
 
         const heading = document.createElement('h4');
-        heading.textContent = 'Lists';
+        heading.textContent = 'To Do';
         heading.style.fontSize = '28px';
         heading.style.fontWeight = '600';
         listContainer.appendChild(heading);
@@ -374,7 +374,11 @@ function showAlert(message, type = 'info') {
     alertContainer.textContent = message;
     alertContainer.className = `alert alert-${type}`; 
     alertContainer.style.display = 'block';
-
+    switch (type) {
+        case 'error.detail':
+            alertContainer.style.backgroundColor = 'danger'; 
+            break;
+    }
 
     setTimeout(() => {
         alertContainer.style.display = 'none';
@@ -515,30 +519,30 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
 });
 
 
-function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, assignedMembers = []) {
-    console.log('Assigned Members:', assignedMembers); 
-    console.log('List ID in showEdittModal:', listId); 
+function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, cardDueDate, assignedMembers = []) {
+    console.log('Due Date:', cardDueDate);  // Debugging: Check the due date value
 
     // Set the card ID and list ID
     document.getElementById('editCardId').value = cardId;
     document.getElementById('listId').value = listId; 
 
- 
+    // Assign values to the fields
     document.getElementById('editCardTitle').value = cardTitle;
     document.getElementById('editCardContent').value = cardContent;
     document.getElementById('editCardPriority').value = cardPriority;
     document.getElementById('editCardStatus').value = cardStatus;
-    document.getElementById('editCardDueDate').value = cardDueDate; 
+    document.getElementById('editCardDueDate').value = cardDueDate; // Set the due date
 
+    // Process assigned members
     const validAssignedMembers = Array.isArray(assignedMembers) ? assignedMembers : [];
-
     const assignedMemberIds = validAssignedMembers.map(member => member.id);
-
     fetchMembers(assignedMemberIds);
 
+    // Show the modal
     const editCardModal = new bootstrap.Modal(document.getElementById('editCardModal'));
     editCardModal.show();
 }
+
 
 
 function fetchMembers(assignedMembers = []) {
@@ -591,16 +595,8 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
     const priority = document.getElementById('editCardPriority').value;
     const status = document.getElementById('editCardStatus').value;
     const dueDate = document.getElementById('editCardDueDate').value; 
-    const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value)); // Ensure this is an array of integers
+    const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value));
 
-    // console.log('Card ID:', cardId);
-    // console.log('Title:', title);
-    // console.log('Content:', content);
-    // console.log('List ID:', listId);
-    // console.log('Priority:', priority);
-    // console.log('Status:', status);
-    // console.log('Assigned Members:', assignedMembers);
-    // console.log('Due Date:', dueDate);
     if (!listId) {
         showAlert('List ID is required.', 'error');
         return;
@@ -608,7 +604,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
+    fetch(`https://workio-ypph.onrender.com/board/card/card/${cardId}/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -620,8 +616,8 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
             list: parseInt(listId),
             priority: priority,
             status: status,
-            assign: assignedMembers ,
-            due_date: dueDate, 
+            assign: assignedMembers,
+            due_date: dueDate,
         })
     })
     .then(response => {
@@ -641,10 +637,21 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
         fetchCards(listId);
     })
     .catch(error => {
-        console.error('Error updating card:', error);
-        showAlert('Error updating card. Please try again.', 'error');
+       
+        const editCardModal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
+        if (editCardModal) {
+            editCardModal.hide();
+        }
+
+
+        if (error.detail) {
+            showAlert('You do not have permission to edit this card.');
+        } else {
+            showAlert('Error updating card. Please try again.', 'error');
+        }
     });
 });
+
 
 
 function deleteItemm(cardId) {
