@@ -54,7 +54,7 @@ function fetchBoardMembers(boardId) {
         listContainer.innerHTML = '';
 
         const heading = document.createElement('h4');
-        heading.textContent = 'To Do';
+        heading.textContent = 'Lists';
         heading.style.fontSize = '28px';
         heading.style.fontWeight = '600';
         listContainer.appendChild(heading);
@@ -118,117 +118,6 @@ function fetchBoardMembers(boardId) {
         console.error('Error fetching board members:', error);
     });
 }
-
-function fetchCards(listId) {
-    const token = localStorage.getItem("token");
-
-    fetch(`https://workio-ypph.onrender.com/board/cards/?search=${listId}`, {
-        headers: {
-            'Authorization': `Token ${token}`,
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Fetched cards data:', data); // Debugging line
-
-        const cardsContainer = document.getElementById(`cardsContainer${listId}`);
-        if (!cardsContainer) {
-            console.error('Cards container not found');
-            return;
-        }
-
-        cardsContainer.innerHTML = ''; // Clear existing cards
-
-        if (Array.isArray(data) && data.length > 0) {
-            data.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.className = 'card';
-                cardElement.style.marginBottom = '10px';
-                cardElement.style.padding = '10px';
-                cardElement.style.backgroundColor = '#ffffff';
-                cardElement.style.border = '1px solid #ddd';
-                cardElement.style.borderRadius = '5px';
-
-                // Loop through assigned members and concatenate usernames
-                let assignedMemberUsernames = 'Not Assigned';
-                if (Array.isArray(card.assigned_member) && card.assigned_member.length > 0) {
-                    assignedMemberUsernames = card.assigned_member.map(member => member.username).join(', ');
-                }
-
-                cardElement.innerHTML = `
-                    <div style="
-                        display: flex;
-                        justify-content: space-between;
-                        margin-bottom: 5px;
-                    ">
-                        <div>
-                            <h5 style="font-weight: bold;">${card.title}</h5>
-                            <small style="
-                                font-size: 15px;
-                            ">Priority: <span style="
-                                background-color: #ffcbb8;
-                                padding: 4px;
-                                border-radius: 4px;
-                                text-transform: capitalize;
-                                margin-left: 4px;
-                                margin-right: 10px;
-                            ">${card.priority}</span> 
-                            <span> | </span> Status: <span style="
-                                background-color: #b8ffef;
-                                padding: 4px;
-                                border-radius: 4px;
-                                text-transform: capitalize;
-                                margin-left: 4px;
-                            ">${card.status}</span> 
-                            <span> | </span> Assign: <span style="
-                                background-color: #ffcbb8;
-                                padding: 4px;
-                                border-radius: 4px;
-                                text-transform: capitalize;
-                                margin-left: 4px;
-                            ">${assignedMemberUsernames}</span>  <span> | </span> Due Date: <span style="
-                                background-color: #b8ffef;
-                                padding: 4px;
-                                border-radius: 4px;
-                                text-transform: capitalize;
-                                margin-left: 4px;
-                            ">${card.due_date}</span> </small>
-                        </div>
-                        <div>
-                            <div class="dropdown">
-                                <button class="btn" type="button" id="dropdownMenuButton${card.id}" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${card.id}">
-                                   <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${listId}', '${card.priority}', '${card.status}', '${card.due_date}')">
-    <a class="dropdown-item edit-icon" href="#">
-        <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
-    </a>
-</li>
-                                    <li onclick="deleteItemm('${card.id}')">
-                                        <a class="dropdown-item delete-icon" href="#">
-                                            <i class="fa-solid fa-delete-left" style="cursor: pointer; margin-right: 10px;"></i>Delete
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                cardsContainer.appendChild(cardElement);
-            });
-        } else {
-            const noCardsMessage = document.createElement('p');
-            noCardsMessage.textContent = 'No cards available.';
-            cardsContainer.appendChild(noCardsMessage);
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching cards:', error);
-    });
-}
-
 
 
 
@@ -397,6 +286,117 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+function fetchCards(listId) {
+    const token = localStorage.getItem("token");
+
+    fetch(`https://workio-ypph.onrender.com/board/cards/?search=${listId}`, {
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Fetched cards data:', data); // Debugging line
+
+        const cardsContainer = document.getElementById(`cardsContainer${listId}`);
+        if (!cardsContainer) {
+            console.error('Cards container not found');
+            return;
+        }
+
+        cardsContainer.innerHTML = ''; // Clear existing cards
+
+        if (Array.isArray(data) && data.length > 0) {
+            data.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.style.marginBottom = '10px';
+                cardElement.style.padding = '10px';
+                cardElement.style.backgroundColor = '#ffffff';
+                cardElement.style.border = '1px solid #ddd';
+                cardElement.style.borderRadius = '5px';
+
+               
+                let assignedMemberUsernames = 'Not Assigned';
+                if (Array.isArray(card.assigned_member) && card.assigned_member.length > 0) {
+                    assignedMemberUsernames = card.assigned_member.map(member => member.username).join(', ');
+                }
+
+                cardElement.innerHTML = `
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                    ">
+                        <div>
+                            <h5 style="font-weight: bold;">${card.title}</h5>
+                            <small style="
+                                font-size: 15px;
+                            ">Priority: <span style="
+                                background-color: #ffcbb8;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                                margin-right: 10px;
+                            ">${card.priority}</span> 
+                            <span> | </span> Status: <span style="
+                                background-color: #b8ffef;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${card.status}</span> 
+                            <span> | </span> Assign: <span style="
+                                background-color: #ffcbb8;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${assignedMemberUsernames}</span>  <span> | </span> Due Date: <span style="
+                                background-color: #b8ffef;
+                                padding: 4px;
+                                border-radius: 4px;
+                                text-transform: capitalize;
+                                margin-left: 4px;
+                            ">${card.due_date}</span> </small>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn" type="button" id="dropdownMenuButton${card.id}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${card.id}">
+                                   <li onclick="showEdittModal('${card.id}', '${card.title}', '${card.content}', '${listId}', '${card.priority}', '${card.status}','${card.assigned_members}','${card.due_date}')">
+    <a class="dropdown-item edit-icon" href="#">
+        <i class="fa-solid fa-pen" style="cursor: pointer; margin-right: 10px;"></i>Edit
+    </a>
+</li>
+                                    <li onclick="deleteItemm('${card.id}')">
+                                        <a class="dropdown-item delete-icon" href="#">
+                                            <i class="fa-solid fa-delete-left" style="cursor: pointer; margin-right: 10px;"></i>Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                cardsContainer.appendChild(cardElement);
+            });
+        } else {
+            const noCardsMessage = document.createElement('p');
+            noCardsMessage.textContent = 'No cards available.';
+            cardsContainer.appendChild(noCardsMessage);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching cards:', error);
+    });
+}
+
+
 function showCardModal(listId) {
     const modal = new bootstrap.Modal(document.getElementById('cardModal'));
     document.getElementById('listId').value = listId;
@@ -474,33 +474,31 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
 
 
 
-        function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, cardDueDate, assignedMembers = []) {
-            console.log('Due Date:', cardDueDate);  // Debugging: Check the due date value
+        function showEdittModal(cardId, cardTitle, cardContent, listId, cardPriority, cardStatus, assignedMembers, cardDueDate = '') {
+            console.log('Assigned Members:', assignedMembers); 
+            console.log('List ID in showEdittModal:', listId); 
         
             // Set the card ID and list ID
             document.getElementById('editCardId').value = cardId;
             document.getElementById('listId').value = listId; 
         
-            // Assign values to the fields
             document.getElementById('editCardTitle').value = cardTitle;
             document.getElementById('editCardContent').value = cardContent;
             document.getElementById('editCardPriority').value = cardPriority;
             document.getElementById('editCardStatus').value = cardStatus;
-            document.getElementById('editCardDueDate').value = cardDueDate; // Set the due date
+            document.getElementById('editCardDueDate').value = cardDueDate;
         
-            // Process assigned members
             const validAssignedMembers = Array.isArray(assignedMembers) ? assignedMembers : [];
+
             const assignedMemberIds = validAssignedMembers.map(member => member.id);
-            fetchMembers(assignedMemberIds);
         
-            // Show the modal
+            fetchMembers(assignedMemberIds);
+       
             const editCardModal = new bootstrap.Modal(document.getElementById('editCardModal'));
             editCardModal.show();
         }
         
-        
-        
-        function fetchMembers(assignedMembers = []) {
+        function fetchMembers(assignedMemberIds = []) {
             const token = localStorage.getItem("token");
             const boardId = getQueryParams('id');
         
@@ -509,6 +507,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                     'Authorization': `Token ${token}`,
                 }
             })
+            
             .then(response => response.json())
             .then(data => {
                 console.log('Fetched board data:', data); 
@@ -516,15 +515,14 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                 const memberSelect = document.getElementById('editAssignedMember');
                 memberSelect.innerHTML = '';
         
-               
                 if (data.members) {
                     data.members.forEach(member => {
                         const option = document.createElement('option');
                         option.value = member.id;
-                        option.textContent = member.username; 
+                        option.textContent = member.username;
         
                         // Check if the assigned member's ID matches
-                        if (assignedMembers.includes(member.id)) {
+                        if (assignedMemberIds.includes(member.id)) {
                             option.selected = true;
                         }
         
@@ -539,8 +537,8 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
             });
         }
         
-        
-        document.getElementById('editCardForm').addEventListener('submit', function(e) {
+
+document.getElementById('editCardForm').addEventListener('submit', function(e) {
             e.preventDefault();
         
             const cardId = document.getElementById('editCardId').value;
@@ -549,7 +547,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
             const listId = document.getElementById('listId').value;
             const priority = document.getElementById('editCardPriority').value;
             const status = document.getElementById('editCardStatus').value;
-            const dueDate = document.getElementById('editCardDueDate').value; 
+            const dueDate = document.getElementById('editCardDueDate').value;
             const assignedMembers = Array.from(document.getElementById('editAssignedMember').selectedOptions).map(option => parseInt(option.value));
         
             if (!listId) {
@@ -571,8 +569,8 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                     list: parseInt(listId),
                     priority: priority,
                     status: status,
-                    assign: assignedMembers,
-                    due_date: dueDate,
+                    assigned_members: assignedMembers, // This should be an array of integers
+                    due_date: dueDate, 
                 })
             })
             .then(response => {
@@ -592,18 +590,8 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                 fetchCards(listId);
             })
             .catch(error => {
-               
-                const editCardModal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
-                if (editCardModal) {
-                    editCardModal.hide();
-                }
-        
-        
-                if (error.detail) {
-                    showAlert('You do not have permission to edit this card.');
-                } else {
-                    showAlert('Error updating card. Please try again.', 'error');
-                }
+                console.error('Error updating card:', error);
+                showAlert('Error updating card. Please try again.', 'error');
             });
         });
         
