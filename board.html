@@ -24,13 +24,12 @@
                 <a href="profile.html" class="dashboard-nav-item"><i class="fas fa-home"></i> Home </a>
                 
                 
-            <div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fa-solid fa-chalkboard"></i>
-                 Boards </a>
-            <div class='dashboard-nav-dropdown-menu'>
-                <a href="boardmember.html" class="dashboard-nav-dropdown-item">Board Member</a>
-                <a href="invitedBoard.html" class="dashboard-nav-dropdown-item">Invited Board</a>
+                <div class=''>
+                   
+                    <a href="boardmember.html" class="dashboard-nav-item"><i class="fas fa-users"></i>Board Members List</a>
+                    <a href="invitedBoard.html" class="dashboard-nav-item"><i class="fa-solid fa-chalkboard"></i>Invited Board</a>
+             
             </div>
-        </div>
                
               
                 <a href="members.html" class="dashboard-nav-item"><i class="fas fa-users"></i> Members </a>
@@ -51,10 +50,10 @@
     style="display: none; color:black"
   ></div>
                 <div class='container'>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div><p class="board_icon dashboard-nav-item" ><i class="fa-solid fa-user" style="color: black !important;"></i> <span id="boardName"></span></p></div>
+                    <div class="board_dis" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="boarding"><p class="board_icon dashboard-nav-item" ><i class="fa-solid fa-user" style="color: black !important;"></i> <span style="font-size:21px ">Board Name : <span  id="boardName"> </span></span> </p></div>
                         <div style="display: flex; align-items: center; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addMemberModal" onclick="openAddMemberModal()">
-                            <span style="font-size: 20px; font-weight: 500; ">Add Member</span>
+                            <span class="add_board" style="font-size: 20px; font-weight: 500; ">Add Member</span>
                             <i class="fa-solid fa-plus" style="font-size: 26px; margin-left: 12px; color: black !important;"></i>
                         </div>
                     </div>
@@ -82,11 +81,11 @@
                         </div>
                     </section>
                     <div class="container">
-                        <div class="row mb-3" id="mainRow" style="display: flex; justify-content: space-between;">
+                        <div class="row mb-3 " id="mainRow" style="display: flex; justify-content: space-between;">
                            
                     
                             <!-- Form Column -->
-                            <div class="col-4" id="formContainer" style=" padding: 10px;">
+                            <div class="col-4 " id="formContainer" style=" padding: 10px;">
                                 <form id="addListForm" style="margin-top: 12px;">
                                     <label class="form-label" for="addList" style="
                                     font-size: 20px;

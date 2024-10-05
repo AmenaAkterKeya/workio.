@@ -20,14 +20,11 @@
             </header>
             <nav class="dashboard-nav-list">
                 <a href="profile.html" class="dashboard-nav-item"><i class="fas fa-home"></i> Home </a>
-                <div class='dashboard-nav-dropdown'>
-                    <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                        <i class="fa-solid fa-chalkboard"></i> Boards
-                    </a>
-                    <div class='dashboard-nav-dropdown-menu'>
-                        <a href="boardmember.html" class="dashboard-nav-dropdown-item">Board Member</a>
-                        <a href="invitedBoard.html" class="dashboard-nav-dropdown-item">Invited Board</a>
-                    </div>
+                <div class=''>
+                   
+                        <a href="boardmember.html" class="dashboard-nav-item"><i class="fas fa-users"></i>Board Members List</a>
+                        <a href="invitedBoard.html" class="dashboard-nav-item"><i class="fa-solid fa-chalkboard"></i>Invited Board</a>
+                 
                 </div>
                 <a href="members.html" class="dashboard-nav-item"><i class="fas fa-users"></i> Members </a>
                 <a href="owner.html" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>
@@ -43,10 +40,10 @@
             <div class='dashboard-content'>
                 <div class='container'>
                     <div class="alert" role="alert" id="error" style="display: none; color: black;"></div>
-                    <p class="board_icon dashboard-nav-item"><i class="fa-solid fa-user" style="
+                    <p class="board_icon dashboard-nav-item boarding"><i class="fa-solid fa-user" style="
                         color: black !important;
-                    "></i> <span>Your boards</span></p>
-                    <section class="pt-3 pb-3">
+                    "></i> <span>My boards</span></p>
+                    <section class="pt-3 pb-3 boarding">
                         <ul class="row" id="boardList">
                             <!-- Board items will be dynamically added here -->
                         </ul>

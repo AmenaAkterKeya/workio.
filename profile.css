@@ -427,20 +427,35 @@ h1, .h1 {
     .dashboard-compact .dashboard-app {
         margin-left: 0;
     }
-   
-   
+    .boarding {
+        margin-left: -30px;
+    }
+   .boardingmem{
+    margin-left: -55px;
+    margin-bottom: 8px;
+   }
+   .boamem{
+    margin-left: -16px;
+   }
 }
-
 
 @media (max-width: 768px) {
     .dashboard-content {
         padding: 15px 0px;
     }
+    .boarding {
+        margin-left: -30px;
+    }
+   
     .board{
         font-size: 16px;
         width: 700px;
         height: 100px;;
     }
+    .boardingmem{
+        margin-left: -55px;
+        margin-bottom: 8px;
+       }
     .info{
         width: 100% !important;
     }
@@ -510,3 +525,29 @@ h1, .h1 {
     font-size: 0.7rem !important;
   }
 }
+@media (max-width: 425px) {
+    .boarding {
+        margin-left: 0px;
+    }
+    .board_dis{
+        display: block !important;
+    }
+    .add_board{
+        margin-left: 30px !important;
+    }
+    #mainRow{
+        display: block !important;
+    }
+    #formContainer{
+        width: 100% !important;
+    }
+    #listContainer{
+        width: 100% !important;
+    }
+    .boamem{
+        margin-left: -16px;
+       }
+       #boardCount{
+        margin-top: -15px;
+       }
+  }

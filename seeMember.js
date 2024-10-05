@@ -52,7 +52,7 @@ function displayBoardMembers(members) {
     const noDataDiv = document.getElementById('nodata_instructor');
     const theadDark = document.getElementById('thead-dark');
     const memberCount = document.getElementById('memberCount');
-
+    const boardId = getQueryParams('id');
     if (!members || members.length === 0) {
         // Show "no data" message if there are no members
         noDataDiv.style.display = 'flex';
@@ -74,7 +74,7 @@ function displayBoardMembers(members) {
                 <td>${member.first_name || 'No first name available'} ${member.last_name || 'No last name available'}</td>
                 <td>${member.email || 'No email available'}</td>
                 <td>
-                    <a href="board.html?id=${member.id}" class="btn btn-outline-dark mem_btn">Board</a>
+                    <a href="board.html?id=${boardId}" class="btn btn-outline-dark mem_btn">Board</a>
                 </td>
             `;
             tbody.appendChild(row);

@@ -78,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (Array.isArray(responseBody)) {
                     showError(responseBody.join(', ')); 
                 } else {
+                    $('#addMemberModal').modal('hide');
                     showError(responseBody.detail || 'This user does not exist');
+                    
                 }
                 return;
             }
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Hide the modal
             $('#addMemberModal').modal('hide');
-
+            location.reload();
           
 
         } catch (error) {

@@ -21,10 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const textColor = LightColor(board.color) ? 'black' : 'white'; 
                 const listItem = `
                     <li class="col-lg-3 col-md-4 col-sm-4 mb-3 d-flex align-items-stretch">
+                     
                          <a href="invitedBoardList.html?id=${board.id}" class="card board" style="background-color: ${board.color}; color: ${textColor}">
-                      <span style="font-size: 20px; font-weight: 500; display: flex;">
+                     <div style="
+    display: flex;
+    justify-content: space-between;
+"> <span style="font-size: 20px; font-weight: 500; display: flex;">
                           ${board.name.slice(0, 20)}..
-                      </span>
+                      </span><span class="btn btn-outline-dark ">Enter</span> </div>
                       <div style="font-weight: 500; display: flex;">Members: ${board.members_num}</div>
                   </a>
                     </li>
