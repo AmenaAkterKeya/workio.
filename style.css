@@ -107,6 +107,7 @@
         margin-bottom: 15px;
     }
     
+    
 }
 @media (max-width: 576px){
 .btn-lg, .btn-group-lg>.btn {
@@ -137,5 +138,9 @@
 }
 .img-p {
     width: 160px !important;
+}
+.fea_img{
+   padding-bottom: 0px !important;
+  margin-top: 0px !important;
 }
 }
