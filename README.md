@@ -2,7 +2,7 @@
 
 Workio is a web platform designed to streamline project management and enhance collaboration among teams.
 
-# Main Feature
+## Main Feature
 
 - Users can register and log in securely.
 - Users can create boards, lists, and cards to organize tasks.
