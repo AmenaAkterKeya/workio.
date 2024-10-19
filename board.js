@@ -15,7 +15,7 @@ function getQueryParams(param) {
 function fetchBoardDetails(boardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -35,29 +35,42 @@ function fetchBoardDetails(boardId) {
 }
 function fetchBoardMembers(boardId) {
     const token = localStorage.getItem("token");
+    const listContainer = document.getElementById('listContainer');
+    const formContainer = document.getElementById('formContainer');
 
-    fetch(`https://workio-ypph.onrender.com/board/list/?search=${boardId}`, {
+    if (!listContainer || !formContainer) {
+        console.error('One or more required elements are missing.');
+        return;
+    }
+
+    listContainer.innerHTML = ''; // Clear previous content
+
+    const heading = document.createElement('h4');
+    heading.textContent = 'Lists';
+    heading.style.fontSize = '28px';
+    heading.style.fontWeight = '600';
+    listContainer.appendChild(heading);
+
+    // Show loading indicator (optional)
+    const loadingMessage = document.createElement('p');
+    loadingMessage.textContent = 'Loading...';
+    listContainer.appendChild(loadingMessage);
+
+    fetch(`https://workio-theta.vercel.app/board/list/?search=${boardId}`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        const listContainer = document.getElementById('listContainer');
-        const formContainer = document.getElementById('formContainer');
-
-        if (!listContainer || !formContainer) {
-            console.error('One or more required elements are missing.');
-            return;
+    .then(response => {
+        // Check if the response is OK (status code in the range 200-299)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-
-        listContainer.innerHTML = '';
-
-        const heading = document.createElement('h4');
-        heading.textContent = 'Lists';
-        heading.style.fontSize = '28px';
-        heading.style.fontWeight = '600';
-        listContainer.appendChild(heading);
+        return response.json();
+    })
+    .then(data => {
+        // Remove loading message
+        loadingMessage.remove();
 
         if (data.length > 0) {
             data.forEach(list => {
@@ -70,12 +83,17 @@ function fetchBoardMembers(boardId) {
                 listElement.style.borderRadius = '5px';
 
                 listElement.innerHTML = `
-                    <div class="icon-container" style="display: flex; justify-content: space-between; margin-bottom: 10px;"> 
-                        <div>
+                      <div class="icon-container" style="display: flex; justify-content: space-between; margin-bottom: 10px;"> 
+                        <div style="display: flex; align-items: center;">
                             <p style="font-size: 24px; font-weight: 500;">${list.title}</p>
                         </div>
                         <div>
                             <div class="dropdown">
+                                <button class="toggle-button" id="toggleButton${list.id}" 
+                                        style="margin-right: 10px; font-size: 25px; font-weight: 500;">
+                                    <i class="fa-solid fa-minus" style="font-size: 25px;"></i>
+                                </button>
+
                                 <button class="btn" type="button" id="dropdownMenuButton${list.id}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
@@ -99,12 +117,34 @@ function fetchBoardMembers(boardId) {
                             </div>
                         </div>
                     </div>
-                    <div id="cardsContainer${list.id}" class="cards-container"></div> <!-- Container for cards -->
+                    <div id="cardsContainer${list.id}" class="cards-container" style="display: block;"></div> <!-- Container for cards -->
                 `;
 
                 listContainer.appendChild(listElement);
-                fetchCards(list.id); 
                 
+                const toggleButton = document.getElementById(`toggleButton${list.id}`);
+                const cardsContainer = document.getElementById(`cardsContainer${list.id}`);
+
+                // Fetch cards immediately since the container is shown by default
+                fetchCards(list.id); 
+
+                toggleButton.addEventListener('click', () => {
+                    const isHidden = cardsContainer.style.display === 'none';
+                    cardsContainer.style.display = isHidden ? 'block' : 'none';
+
+                    // Update the icon based on the state
+                    toggleButton.innerHTML = isHidden 
+                        ? '<i class="fa-solid fa-minus" style="font-size: 25px;"></i>' 
+                        : '<i class="fa-solid fa-plus" style="font-size: 25px;"></i>';
+                    
+                    toggleButton.style.marginRight = '10px'; // Maintain the margin
+                    toggleButton.style.fontWeight = '500'; // Maintain font weight
+                    toggleButton.setAttribute('aria-expanded', isHidden); // Update aria-expanded
+
+                    if (isHidden) {
+                        fetchCards(list.id); 
+                    }
+                });
             });
 
             listContainer.style.display = 'block';
@@ -116,10 +156,11 @@ function fetchBoardMembers(boardId) {
     })
     .catch(error => {
         console.error('Error fetching board members:', error);
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Error loading lists. Please try again later.';
+        listContainer.appendChild(errorMessage);
     });
 }
-
-
 
 
 
@@ -152,7 +193,7 @@ document.getElementById('editListForm').addEventListener('submit', function(even
     const boardId = getQueryParams('id'); 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/list/${id}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/list/${id}/`, {
         method: 'PUT',
         headers: {
             'Authorization': `Token ${token}`,
@@ -184,7 +225,7 @@ function deleteItem(id) {
     const boardId = getQueryParams('id'); 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/list/${id}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/list/${id}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Token ${token}`,
@@ -248,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
 
-        fetch(`https://workio-ypph.onrender.com/board/list/`, {
+        fetch(`https://workio-theta.vercel.app/board/list/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -289,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchCards(listId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/cards/?search=${listId}`, {
+    fetch(`https://workio-theta.vercel.app/board/cards/?search=${listId}`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -407,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
  
     const boardId = getQueryParams('id');
      const token = localStorage.getItem("token");
-     fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+     fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -417,12 +458,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const assignedMemberSelect = document.getElementById('assignedMember');
             assignedMemberSelect.innerHTML = ''; 
 
-            data.members.forEach(member => {
+            if (data.members.length === 0) {
+                // If no members, show "null" option
                 const option = document.createElement('option');
-                option.value = member.id;
-                option.textContent = member.username; 
+                option.value = [];
+                option.textContent = 'No members available'; 
                 assignedMemberSelect.appendChild(option);
-            });
+            } else {
+                // Populate members if they exist
+                data.members.forEach(member => {
+                    const option = document.createElement('option');
+                    option.value = member.id;
+                    option.textContent = member.username;
+                    assignedMemberSelect.appendChild(option);
+                });
+            }
         })
         .catch(error => console.error('Error fetching board members:', error));
 });
@@ -443,11 +493,11 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                 list: parseInt(listId),
                 priority: cardPriority,
                 status: cardStatus,
-                assigned_members: [parseInt(assignedMember)],
+                assigned_members: assignedMember ? [parseInt(assignedMember)] : [],
                 due_date: cardDueDate
             };
         
-            fetch(`https://workio-ypph.onrender.com/board/list/${listId}/card/`, {
+            fetch(`https://workio-theta.vercel.app/board/list/${listId}/card/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -502,7 +552,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
             const token = localStorage.getItem("token");
             const boardId = getQueryParams('id');
         
-            fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+            fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
                 headers: {
                     'Authorization': `Token ${token}`,
                 }
@@ -557,7 +607,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
         
             const token = localStorage.getItem("token");
         
-            fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
+            fetch(`https://workio-theta.vercel.app/board/card/${cardId}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -599,7 +649,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 function deleteItemm(cardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/card/${cardId}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Token ${token}`,

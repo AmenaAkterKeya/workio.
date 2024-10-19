@@ -31,7 +31,7 @@ const handleRegistration = (event) => {
         errorElement.innerText = "";
         
         if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
-            fetch("https://workio-ypph.onrender.com/account/register/", {
+            fetch("https://workio-theta.vercel.app/account/register/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(info),
@@ -64,7 +64,7 @@ const handleLogin = (event) => {
     if (username && password) {
         preloader.style.display = "flex";
 
-        fetch("https://workio-ypph.onrender.com/account/login/", {
+        fetch("https://workio-theta.vercel.app/account/login/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -107,7 +107,7 @@ const handlelogOut = (event) => {
   
     const token = localStorage.getItem("token");
   
-    fetch("https://workio-ypph.onrender.com/account/logout/", {
+    fetch("https://workio-theta.vercel.app/account/logout/", {
       method: "POST",
       headers: {
         Authorization: `Token ${token}`,

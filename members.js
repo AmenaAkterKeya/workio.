@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const url = 'https://workio-ypph.onrender.com/board/board/';
+    const url = 'https://workio-theta.vercel.app/board/board/';
     const token = localStorage.getItem("token");
 
     function fetchAndUpdateTable() {

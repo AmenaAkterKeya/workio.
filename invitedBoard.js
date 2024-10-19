@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const customuser_id = localStorage.getItem("customuser_id");
     const token = localStorage.getItem("token"); // Retrieve the token from localStorage or another source
-    const apiUrl = `https://workio-ypph.onrender.com/board/allMember/?customuser_id=${customuser_id}`;
+    const apiUrl = `https://workio-theta.vercel.app/board/allMember/?customuser_id=${customuser_id}`;
 
     fetch(apiUrl, {
         headers: {

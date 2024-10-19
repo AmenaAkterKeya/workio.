@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearForm();
 
         try {
-            const response = await fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/addmember/`, {
+            const response = await fetch(`https://workio-theta.vercel.app/board/board/${boardId}/addmember/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

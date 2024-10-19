@@ -17,7 +17,7 @@ function getQueryParams(param) {
 function fetchBoardMembers(boardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,

@@ -20,7 +20,7 @@ function isLightColor(color) {
 function fetchBoards() {
     const token = localStorage.getItem("token");
 
-    fetch('https://workio-ypph.onrender.com/board/board/', {
+    fetch('https://workio-theta.vercel.app/board/board/', {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,

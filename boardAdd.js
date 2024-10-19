@@ -19,7 +19,7 @@ const loadCustomUser = () => {
       return;
   }
 
-  fetch(`https://workio-ypph.onrender.com/account/user/?user_id=${customuser_id}`)
+  fetch(`https://workio-theta.vercel.app/account/user/?user_id=${customuser_id}`)
       .then(res => res.json())
       .then(data => {
 
@@ -39,7 +39,7 @@ async function fetchBoards() {
   }
 
   try {
-      const response = await fetch(`https://workio-ypph.onrender.com/board/board/?customuser=${customuser_id}`, {
+      const response = await fetch(`https://workio-theta.vercel.app/board/board/?customuser=${customuser_id}`, {
           headers: {
               'Authorization': `Token ${token}`,
           },
@@ -78,8 +78,6 @@ async function fetchBoards() {
               `;
               boardList.appendChild(boardItem);
           });
-      } else {
-          boardList.innerHTML = '<li>No boards available</li>';
       }
 
       const createBoardItem = document.createElement('li');
@@ -124,7 +122,7 @@ document.getElementById('createBoardForm').addEventListener('submit', async (eve
   }
 
   try {
-      const response = await fetch('https://workio-ypph.onrender.com/board/board/', {
+      const response = await fetch('https://workio-theta.vercel.app/board/board/', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

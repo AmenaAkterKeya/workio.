@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
  
     if (user_id) {
-        fetch(`https://workio-ypph.onrender.com/account/user/${customuser_id}/`)
+        fetch(`https://workio-theta.vercel.app/account/user/${customuser_id}/`)
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
     
-        fetch(`https://workio-ypph.onrender.com/account/user/${customuser_id}/`, {
+        fetch(`https://workio-theta.vercel.app/account/user/${customuser_id}/`, {
             method: 'PUT', 
             headers: {
                 'Content-Type': 'application/json',

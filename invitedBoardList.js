@@ -15,7 +15,7 @@ function getQueryParams(param) {
 function fetchBoardDetails(boardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/boards/${boardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/boards/${boardId}/`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -36,7 +36,7 @@ function fetchBoardDetails(boardId) {
 function fetchBoardMembers(boardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/list/?search=${boardId}`, {
+    fetch(`https://workio-theta.vercel.app/board/list/?search=${boardId}`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -121,7 +121,7 @@ function fetchBoardMembers(boardId) {
 function fetchCards(listId) {
     const token = localStorage.getItem("token");
     console.log(token)
-    fetch(`https://workio-ypph.onrender.com/board/cards/?search=${listId}`, {
+    fetch(`https://workio-theta.vercel.app/board/cards/?search=${listId}`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -263,7 +263,7 @@ document.getElementById('editListForm').addEventListener('submit', function(even
     const boardId = getQueryParams('id'); 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/list/${id}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/list/${id}/`, {
         method: 'PUT',
         headers: {
             'Authorization': `Token ${token}`,
@@ -295,7 +295,7 @@ function deleteItem(id) {
     const boardId = getQueryParams('id'); 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/list/${id}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/list/${id}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Token ${token}`,
@@ -335,7 +335,7 @@ document.getElementById('addListForm').addEventListener('submit', function(event
         return; 
     }
 
-    fetch(`https://workio-ypph.onrender.com/board/list/`, {
+    fetch(`https://workio-theta.vercel.app/board/list/`, {
         method: 'POST',
         headers: {
             'Authorization': `Token ${token}`,
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return; 
         }
 
-        fetch(`https://workio-ypph.onrender.com/board/list/`, {
+        fetch(`https://workio-theta.vercel.app/board/list/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -455,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function () {
  
     const boardId = getQueryParams('id');
      const token = localStorage.getItem("token");
-     fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+     fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -494,7 +494,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
         due_date: cardDueDate
     };
 
-    fetch(`https://workio-ypph.onrender.com/board/list/${listId}/card/`, {
+    fetch(`https://workio-theta.vercel.app/board/list/${listId}/card/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -549,7 +549,7 @@ function fetchMembers(assignedMembers = []) {
     const token = localStorage.getItem("token");
     const boardId = getQueryParams('id');
 
-    fetch(`https://workio-ypph.onrender.com/board/board/${boardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/board/${boardId}/`, {
         headers: {
             'Authorization': `Token ${token}`,
         }
@@ -604,7 +604,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/card/card/${cardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/card/card/${cardId}/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -657,7 +657,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
 function deleteItemm(cardId) {
     const token = localStorage.getItem("token");
 
-    fetch(`https://workio-ypph.onrender.com/board/card/${cardId}/`, {
+    fetch(`https://workio-theta.vercel.app/board/card/${cardId}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Token ${token}`,
