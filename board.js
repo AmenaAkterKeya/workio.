@@ -90,8 +90,8 @@ function fetchBoardMembers(boardId) {
                         <div>
                             <div class="dropdown">
                                 <button class="toggle-button" id="toggleButton${list.id}" 
-                                        style="margin-right: 10px; font-size: 25px; font-weight: 500;">
-                                    <i class="fa-solid fa-minus" style="font-size: 25px;"></i>
+                                        style="margin-right: 10px; font-size: 16px; font-weight: 500;">
+                                    <i class="fa-solid fa-minus" style="font-size: 16px;"></i>
                                 </button>
 
                                 <button class="btn" type="button" id="dropdownMenuButton${list.id}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,8 +134,8 @@ function fetchBoardMembers(boardId) {
 
                     // Update the icon based on the state
                     toggleButton.innerHTML = isHidden 
-                        ? '<i class="fa-solid fa-minus" style="font-size: 25px;"></i>' 
-                        : '<i class="fa-solid fa-plus" style="font-size: 25px;"></i>';
+                        ? '<i class="fa-solid fa-minus" style="font-size: 16px;"></i>' 
+                        : '<i class="fa-solid fa-plus" style="font-size: 16px;"></i>';
                     
                     toggleButton.style.marginRight = '10px'; // Maintain the margin
                     toggleButton.style.fontWeight = '500'; // Maintain font weight
