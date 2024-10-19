@@ -26,7 +26,7 @@ Workio is a web platform designed to streamline project management and enhance c
 
 ## Frontend Live Site
 
-- [Live Site URL](https://amenaakterkeya.github.io/workio./)
+- [Live Site URL](https://workio-theta.vercel.app/)
 
  ## Backend Live Site
 
