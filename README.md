@@ -42,10 +42,12 @@
   
 ## Technologies Used
 
-### Backend
-- **Python 3.x**: Programming language.
-- **Django**: Web framework for backend development.
-- **Django REST Framework**: API development for seamless frontend-backend communication.
+### Frontend
+- **HTML**: For structuring the web pages.
+- **CSS**: For styling the components and layout.
+- **JavaScript**: For interactivity and dynamic content.
+- **Bootstrap**: Responsive design framework for a mobile-first approach.
+
 
 ---
 
