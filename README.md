@@ -26,8 +26,8 @@
 - **Add to Card**: Users can add cards to the lists.
 
 ### Card Management
-- **Card Priority**: The board admin and added members can set the card's priority.
-- **Card Status**: Both the board admin and added members can set the status of the card.
+- **Card Priority**: The board admin and added members can prioritize the card.
+- **Card Status**: Both the board admin and added members can set the card's status.
 
 ### Add Member Management
 - **View Board**: Added members can view the board.
@@ -38,11 +38,9 @@
 - **Edit and Delete**: Admins can edit and delete lists and cards.
 - **View Board Member Details**: Admins can view details of every board member.
 - **View Total Boards and Members**: Admins can view all boards and all members.
-## Technologies Used
 
-### Frontend
-- **HTML, CSS, JavaScript**: Core web technologies for structure, styling, and interactivity.
-- **Bootstrap**: Responsive design framework.
+  
+## Technologies Used
 
 ### Backend
 - **Python 3.x**: Programming language.
@@ -58,61 +56,25 @@
 
 ---
 
-## API Endpoints
-
-### User Management
-- **POST** `/api/account/register/` - Register a new user.
-- **POST** `/api/account/login/` - User login.
-
-### Board Management
-- **GET** `/api/board/board/` - List all boards.
-- **GET** `/api/board/board/{id}/` - Retrieve a specific board’s details.
-
-### List Management
-- **GET** `/api/board/list/` - Retrieve all lists within boards.
-- **POST** `/api/board/list/` - Add a new list.
-- **PUT** `/api/board/{board_id}/list/{list_id}/` - Update a specific list.
-- **DELETE** `/api/board/{board_id}/list/{list_id}/` - Delete a specific list.
-
-### Card Management
-- **GET** `/api/board/card/` - Retrieve all cards.
-- **POST** `/api/board/list/{list_id}/card/` - Add a new card to a list.
-- **PUT** `/api/board/card/{card_id}/` - Update a specific card.
-- **DELETE** `/api/board/card/{card_id}/` - Delete a specific card.
-
-### Member Management
-- **POST** `/api/board/{board_id}/addmember/` - Add a new member to a board.
-- **GET** `/api/board/member/{board_id}/` - Retrieve members of a board.
-
----
-
 ## Installation & Running the App
 
 ### Prerequisites
-- **Python 3.x**
-- **Django** and **Django REST Framework**
+- A modern web browser (Chrome, Firefox, Safari, etc.)
 
 ### Setup
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/username/workio.git
-   cd workio
-2. **Install Dependencies:**:
+   git clone https://github.com/username/learnX_frontend.git
+   cd learnX_frontend
+   
+2. **Open the Project**:
    ```bash
-   pip install -r requirements.txt
-3. **Run Database Migrations:**:
-   ```bash
-   python manage.py migrate
-4. **Start the Development Server:**:
-   ```bash
-   python manage.py runserver
-5. **Run Tests:**:
-   ```bash
-   python manage.py test
-The backend server will be accessible at http://localhost:8000/api/.
+   Open the `index.html` file in your preferred web browser to view the project.
 
 ## License
 
 This project is licensed under the MIT License.
 This version includes all information within a single structured flow in `README.md`. It’s designed for easy access and readability for anyone interacting with the repository.
+
+
