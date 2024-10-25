@@ -1,63 +1,95 @@
-# Workio.
+# Workio
 
-Workio is a web platform designed to streamline project management and enhance collaboration among teams.
+**Workio** is a web platform designed to streamline project management and enhance team collaboration. With features for creating boards, lists, and cards, teams can organize tasks effectively, set priorities, and manage project workflows in a user-friendly environment.
 
-## Main Feature
+---
 
-- Users can register and log in securely.
-- Users can create boards, lists, and cards to organize tasks.
-- Admins and members can set card priorities and statuses.
-- Members can view and edit cards.
-- Admins can manage lists, cards, and view member details.
-- Responsive UI/UX design
+## Main Features
+
+- **User Authentication**: Secure user registration and login.
+- **Task Organization**: Create boards, lists, and cards to organize and track tasks.
+- **Role-Based Permissions**: 
+  - **Admins**: Manage lists and cards, view member details.
+  - **Members**: View, edit cards, and set priorities and statuses.
+- **Responsive UI/UX**: Optimized for use across devices.
+
+---
 
 ## Technologies Used
 
-  ### Frontend Development
-      - HTML
-      - CSS
-      - Bootstrap
-      - JavaScript
+### Frontend
+- **HTML, CSS, JavaScript**: Core web technologies for structure, styling, and interactivity.
+- **Bootstrap**: Responsive design framework.
 
-  ### Backend Development
-     - Python 3.x
-     - Django
-     - Django REST framework
+### Backend
+- **Python 3.x**: Programming language.
+- **Django**: Web framework for backend development.
+- **Django REST Framework**: API development for seamless frontend-backend communication.
 
-## Frontend Live Site
+---
 
-- [Live Site URL](https://amenaakterkeya.github.io/workio./index.html)
+## Live Demo
 
- ## Backend Live Site
+- **Frontend**: [Workio Frontend](https://amenaakterkeya.github.io/workio./index.html)
+- **Backend**: [Workio Backend](https://workio-theta.vercel.app/)
 
-- [Live Link URL](https://workio-theta.vercel.app/)
+---
 
- ## API Endpoints (For Backend Projects)
+## API Endpoints
 
 ### User Management
-- **POST** `/api/account/register/` - Register a new user
-- **POST** `/api/account/login/` - User login
+- **POST** `/api/account/register/` - Register a new user.
+- **POST** `/api/account/login/` - User login.
 
-### Board Browsing
-- **GET** `/api/board/board/` - List all boards
-- **GET** `/api/board/board/id/` - Get details of a specific board
+### Board Management
+- **GET** `/api/board/board/` - List all boards.
+- **GET** `/api/board/board/{id}/` - Retrieve a specific board’s details.
 
 ### List Management
-- **GET** `/api/board/list/` - View lists
-- **POST** `/api/board/list/` - Add a list
-- **PUT** `/api/board/board/board_id/list/list_id/` - Update a list
-- **DELETE** `/api/board/board/board_id/list/list_id/` - Remove a list
+- **GET** `/api/board/list/` - Retrieve all lists within boards.
+- **POST** `/api/board/list/` - Add a new list.
+- **PUT** `/api/board/{board_id}/list/{list_id}/` - Update a specific list.
+- **DELETE** `/api/board/{board_id}/list/{list_id}/` - Delete a specific list.
 
 ### Card Management
-- **GET** `/api/board/card/` - View cards
-- **POST** `/api/board/list/list_id/card/` - Add a card
-- **PUT** `/api/board/card/card_id/` - Update a card
-- **DELETE** `/api/board/card/card_id/` - Remove a card
+- **GET** `/api/board/card/` - Retrieve all cards.
+- **POST** `/api/board/list/{list_id}/card/` - Add a new card to a list.
+- **PUT** `/api/board/card/{card_id}/` - Update a specific card.
+- **DELETE** `/api/board/card/{card_id}/` - Delete a specific card.
 
-### Add Member Management
-- **POST** `/api/board/board/board_id/addmember/` - Add a member
-- **GET** `/api/board/member/board_id/` - View members
+### Member Management
+- **POST** `/api/board/{board_id}/addmember/` - Add a new member to a board.
+- **GET** `/api/board/member/{board_id}/` - Retrieve members of a board.
 
-### Running the App
-API: The server will be running on http://localhost:8000/api/
+---
 
+## Installation & Running the App
+
+### Prerequisites
+- **Python 3.x**
+- **Django** and **Django REST Framework**
+
+### Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/username/workio.git
+   cd workio
+2. **Install Dependencies:**:
+   ```bash
+   pip install -r requirements.txt
+3. **Run Database Migrations:**:
+   ```bash
+   python manage.py migrate
+4. **Start the Development Server:**:
+   ```bash
+   python manage.py runserver
+5. **Run Tests:**:
+   ```bash
+   python manage.py test
+The backend server will be accessible at http://localhost:8000/api/.
+
+## Technologies Used
+
+This project is licensed under the MIT License.
+This version includes all information within a single structured flow in `README.md`. It’s designed for easy access and readability for anyone interacting with the repository.
