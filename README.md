@@ -112,7 +112,7 @@
    python manage.py test
 The backend server will be accessible at http://localhost:8000/api/.
 
-## Technologies Used
+## License
 
 This project is licensed under the MIT License.
 This version includes all information within a single structured flow in `README.md`. It’s designed for easy access and readability for anyone interacting with the repository.
