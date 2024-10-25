@@ -9,8 +9,8 @@
 - **User Authentication**: Secure user registration and login.
 - **Task Organization**: Create boards, lists, and cards to organize and track tasks.
 - **Role-Based Permissions**: 
-  - **Admins**: Manage lists and cards, view member details.
-  - **Members**: View, edit cards, and set priorities and statuses.
+  - **Admins**: Manage lists and cards, edit cards, and view member details.
+  - **Members**: View, and set priorities and statuses.
 - **Responsive UI/UX**: Optimized for use across devices.
 
 ---
@@ -74,6 +74,7 @@
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/username/workio.git
+   ```bash
    cd workio
 2. **Install Dependencies:**:
    ```bash
