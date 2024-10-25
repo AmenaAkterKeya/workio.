@@ -74,7 +74,6 @@
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/username/workio.git
-   ```bash
    cd workio
 2. **Install Dependencies:**:
    ```bash
