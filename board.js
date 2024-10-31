@@ -43,7 +43,7 @@ function fetchBoardMembers(boardId) {
         return;
     }
 
-    listContainer.innerHTML = ''; // Clear previous content
+    listContainer.innerHTML = ''; 
 
     const heading = document.createElement('h4');
     heading.textContent = 'Lists';
@@ -51,7 +51,6 @@ function fetchBoardMembers(boardId) {
     heading.style.fontWeight = '600';
     listContainer.appendChild(heading);
 
-    // Show loading indicator (optional)
     const loadingMessage = document.createElement('p');
     loadingMessage.textContent = 'Loading...';
     listContainer.appendChild(loadingMessage);
@@ -62,7 +61,7 @@ function fetchBoardMembers(boardId) {
         }
     })
     .then(response => {
-        // Check if the response is OK (status code in the range 200-299)
+        
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -125,21 +124,21 @@ function fetchBoardMembers(boardId) {
                 const toggleButton = document.getElementById(`toggleButton${list.id}`);
                 const cardsContainer = document.getElementById(`cardsContainer${list.id}`);
 
-                // Fetch cards immediately since the container is shown by default
+               
                 fetchCards(list.id); 
 
                 toggleButton.addEventListener('click', () => {
                     const isHidden = cardsContainer.style.display === 'none';
                     cardsContainer.style.display = isHidden ? 'block' : 'none';
 
-                    // Update the icon based on the state
+                  
                     toggleButton.innerHTML = isHidden 
                         ? '<i class="fa-solid fa-minus" style="font-size: 16px;"></i>' 
                         : '<i class="fa-solid fa-plus" style="font-size: 16px;"></i>';
                     
-                    toggleButton.style.marginRight = '10px'; // Maintain the margin
-                    toggleButton.style.fontWeight = '500'; // Maintain font weight
-                    toggleButton.setAttribute('aria-expanded', isHidden); // Update aria-expanded
+                    toggleButton.style.marginRight = '10px'; 
+                    toggleButton.style.fontWeight = '500'; 
+                    toggleButton.setAttribute('aria-expanded', isHidden); 
 
                     if (isHidden) {
                         fetchCards(list.id); 
@@ -337,7 +336,7 @@ function fetchCards(listId) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Fetched cards data:', data); // Debugging line
+        console.log('Fetched cards data:', data); 
 
         const cardsContainer = document.getElementById(`cardsContainer${listId}`);
         if (!cardsContainer) {
@@ -345,7 +344,7 @@ function fetchCards(listId) {
             return;
         }
 
-        cardsContainer.innerHTML = ''; // Clear existing cards
+        cardsContainer.innerHTML = ''; 
 
         if (Array.isArray(data) && data.length > 0) {
             data.forEach(card => {
@@ -459,13 +458,13 @@ document.addEventListener("DOMContentLoaded", function () {
             assignedMemberSelect.innerHTML = ''; 
 
             if (data.members.length === 0) {
-                // If no members, show "null" option
+           
                 const option = document.createElement('option');
                 option.value = [];
                 option.textContent = 'No members available'; 
                 assignedMemberSelect.appendChild(option);
             } else {
-                // Populate members if they exist
+             
                 data.members.forEach(member => {
                     const option = document.createElement('option');
                     option.value = member.id;
@@ -528,7 +527,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
             console.log('Assigned Members:', assignedMembers); 
             console.log('List ID in showEdittModal:', listId); 
         
-            // Set the card ID and list ID
+
             document.getElementById('editCardId').value = cardId;
             document.getElementById('listId').value = listId; 
         
@@ -571,7 +570,7 @@ document.getElementById('addCardForm').addEventListener('submit', function (even
                         option.value = member.id;
                         option.textContent = member.username;
         
-                        // Check if the assigned member's ID matches
+
                         if (assignedMemberIds.includes(member.id)) {
                             option.selected = true;
                         }
@@ -619,7 +618,7 @@ document.getElementById('editCardForm').addEventListener('submit', function(e) {
                     list: parseInt(listId),
                     priority: priority,
                     status: status,
-                    assigned_members: assignedMembers, // This should be an array of integers
+                    assigned_members: assignedMembers, 
                     due_date: dueDate, 
                 })
             })

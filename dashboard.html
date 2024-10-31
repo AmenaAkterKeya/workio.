@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="footer.css">
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    rel="stylesheet"
+  />
+  
+   <!-- bootstrap -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class='dashboard'>
+        <div class="dashboard-nav">
+            <header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="profile.html"
+                                                                                       class="brand-logo">  <h2 style="
+                                                                                       color: white;
+                                                                                   ">Workio<span style="
+                                                                                   color: #8e89e3;
+                                                                                   font-weight: 900;
+                                                                               ">.</span></h2></a></header>
+            <nav class="dashboard-nav-list">
+                <a href="profile.html" class="dashboard-nav-item"><i class="fas fa-home"></i> Home </a>
+                
+                
+                <div class=''>
+                   
+                    <a href="boardmember.html" class="dashboard-nav-item"><i class="fas fa-users"></i>Board Members List</a>
+                    <a href="invitedBoard.html" class="dashboard-nav-item"><i class="fa-solid fa-chalkboard"></i>Invited Board</a>
+             
+            </div>
+              
+               
+                
+            <a href="members.html" class="dashboard-nav-item"><i class="fas fa-users"></i> Members </a>
+            <a href="dashboard.html" class="dashboard-nav-item"><i class="fa-solid fa-chalkboard"></i> Dashboard </a>   
+            <a href="owner.html" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>
+                <div class="nav-item-divider"></div>
+                <a class="dashboard-nav-item" href="#" onclick="handlelogOut(event)"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
+            </nav>
+        </div>
+        <div class='dashboard-app'>
+            <header class='dashboard-toolbar'><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a></header>
+            <div class='dashboard-content'>
+                <div class='container'>
+                    <p class="board_icon dashboard-nav-item boardingmem"><span id="memberCount"></span></p>
+                    <section class="pt-1 pb-3">
+                        
+                          <div >
+                           
+                            <!--card  -->
+
+                            <div class="container-fluid" style="
+                            margin-top: -48px;
+                        ">
+                                <h3 class="mb-3">Progress The Task</h3>
+                                <div class="row" id="dashboard">
+                                    <div class="col-md-6 col-xl-4">
+                                        <div class="card mb-3 widget-content bg-midnight-bloom">
+                                            <div class="widget-content-wrapper text-white">
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Total Todo Task</div>
+                                                </div>
+                                                <div class="widget-content-right">
+                                                    <div class="widget-numbers text-white"><span id="total-todo">Loading...</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-4">
+                                        <div class="card mb-3 widget-content bg-arielle-smile">
+                                            <div class="widget-content-wrapper text-white">
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Total In Progress Task</div>
+                                                </div>
+                                                <div class="widget-content-right">
+                                                    <div class="widget-numbers text-white"><span id="total-in-progress">Loading...</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-4">
+                                        <div class="card mb-3 widget-content bg-grow-early">
+                                            <div class="widget-content-wrapper text-white">
+                                                <div class="widget-content-left">
+                                                    <div class="widget-heading">Total Done Task</div>
+                                                </div>
+                                                <div class="widget-content-right">
+                                                    <div class="widget-numbers text-white"><span id="total-done">Loading...</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+</div>
+<!-- map -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-2 ">
+                
+                <div class="card-body">
+                    
+                    <div class="tab-content">
+                        
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100" style="display: flex;margin: auto;">
+                                <div class="card-header-tab card-header-tab-animation card-header">
+                                    <div class="card-header-title" style="
+                                    font-size: 20px;
+                                    font-weight: 500;
+                                    margin-bottom: 20px;
+                                ">
+                                        
+                             Tracking the progress
+                                    </div>
+                                </div>
+                                <div id="loading-spinner-map"></div>
+                                <div class="widget-chat-wrapper-outer" style="
+                                padding: 40px;
+                            ">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0" style="
+                                    display: flex;
+                                    justify-content: center;
+                                ">
+                                
+                                        <canvas id="myPieChart" width="200" height="200" ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+             <!-- Board -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3">
+                <div class="card-header" style="font-size: 20px; font-weight: 500; margin-bottom: 20px;">Board</div>
+                <div class="table-responsive">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Board Title</th>
+                                <th class="text-center">Members</th>
+                                <th class="text-center">To-do Task</th>
+                                <th class="text-center">In Progress Task</th>
+                                <th class="text-center">Done Task</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="board-table-body">
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+           
+                      </section>
+                
+                </div>
+            </div>
+               <!-- footer -->
+<div class="footer">
+    <div class="container">     
+        <div class="row">                       
+            <div class="col-lg-4 col-md-12 col-sm-4 col-xs-12">
+               <div class="row">
+                <div class="single_footer">
+                  <h4>About Workio</h4>
+                  <p>What’s behind the boards.</p>
+              </div>
+              <div class="single_footer  " style="
+              margin-top: 25px;
+          ">
+                <h4>Apps</h4>
+                <p>Download the Workio App for your<br> Desktop or Mobile devices.</p>
+            </div>
+               </div>
+            </div><!--- END COL --> 
+            <div class="col-lg-4 col-md-12 col-sm-4 col-xs-12">
+              <div class="single_footer">
+                  <h4>Jobs</h4>
+                  <p>Learn about open roles on the Workio team.</p>
+              </div>
+              <div class="single_footer" style="
+              margin-top: 25px;
+          ">
+                <h4>Contact us</h4>
+                <p>Need anything? Get in touch and we can help.</p>
+            </div>
+          </div><!--- END COL -->
+          
+            <div class=" col-lg-4 col-md-6 col-sm-4 col-xs-12">
+                <div class="single_footer single_footer_address">
+                    <h4>Subscribe today</h4>
+                    <div class="signup_form">                           
+                        <form action="#" class="subscribe">
+                            <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                            <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="social_profile">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>                          
+            </div><!--- END COL -->         
+        </div><!--- END ROW --> 
+        <div class="row copy">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <p class="copyright">Copyright © 2024 <a href="#">Amena</a>.</p>
+            </div><!--- END COL -->                 
+        </div><!--- END ROW -->                 
+    </div><!--- END CONTAINER -->
+  </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="profile.js"></script>
+    <script src="seeMember.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+
+
+
+
+

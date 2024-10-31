@@ -78,6 +78,71 @@
     border-radius: 5px;
     width: 100%;
 }
+.start {
+    background-image: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180));
+    padding: 80px; 
+    text-align: center;
+    color: white;
+}
+.get_start {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+.start_email{
+    padding: 8px;
+    outline: none;
+    border-radius: 5px;
+    width: 120%;
+}
+.collab{
+    text-align: center;
+}
+.collab_img{
+    width: 60% !important;
+    margin-top: 20px;
+}
+
+.action_card{
+    border-radius: 12px !important;
+}
+.action_yellow {
+    background-color: rgb(255, 196, 0);
+    padding: 25px;
+}
+.action_blue{
+    background: rgb(0, 199, 229);
+    padding: 25px;
+}
+.action_orange{
+    background: rgb(255, 116, 82);
+    padding: 25px;
+}
+.task_action{
+    background-color: rgb(255, 255, 255);
+    background-image: url(/img/task.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-color: rgb(255, 255, 255);
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-width: 8px;
+    height: 3rem;
+    left: 1rem;
+    position: absolute;
+    top: 1.5rem;
+    width: 3rem;
+}
+.task_action_y{
+    background-image: url(/img/task.png);
+}
+.task_action_b{
+    background-image: url(/img/brain.svg);
+}
+.task_action_p{
+    background-image: url(/img/project.png);
+}
 
 /* responsive */
 @media (max-width: 1200px){
@@ -107,7 +172,7 @@
         margin-bottom: 15px;
     }
     
-    
+
 }
 @media (max-width: 576px){
 .btn-lg, .btn-group-lg>.btn {
@@ -143,4 +208,21 @@
    padding-bottom: 0px !important;
   margin-top: 0px !important;
 }
+.start {
+    padding: 40px !important;
+}
+.start_email {
+    padding: 10px !important ;
+}
+.get_start {
+    gap: 50px !important;
+}
+.collab_img {
+    width: 90% !important;
+    margin-bottom: -8px !important;
+}
+.collab h4{
+    font-size: 16px !important; 
+}
+
 }

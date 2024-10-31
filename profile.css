@@ -419,6 +419,65 @@ h1, .h1 {
     background-color: black !important;
     color:white !important;
 }
+.widget-content {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    height: 100px;
+  }
+  .widget-numbers{
+    font-weight: 500;
+  }
+  .widget-content .widget-content-wrapper {
+    display: flex;
+    flex: 1;
+    position: relative;
+    align-items: center;
+    gap: 130px;
+  }
+  .mar{
+    gap: 330px !important;
+  }
+  .widget-content .widget-content-left .widget-heading {
+    opacity: .8;
+    font-weight: 700;
+  }
+  .widget-content .widget-content-left .widget-subheading {
+    opacity: .5;
+  }
+  .bg-midnight-bloom {
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%) !important;
+  }
+  .bg-arielle-smile {
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  }
+  .bg-grow-early {
+    background-image: linear-gradient(to top, #a48dda 0%, #d599c4 100%) !important;
+  }
+  #myPieChart{
+    height: 400px !important;
+    width: 400px !important; 
+  }
+  #loading-spinner-map {
+    display: none;  
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid black;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+    margin-top: 100px;
+}
+#nodata_instructor{
+    display: block;
+    justify-content: center;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 @media (min-width: 992px) {
     .dashboard-app {
         margin-left: 238px;
@@ -524,6 +583,10 @@ h1, .h1 {
   .btn {
     font-size: 0.7rem !important;
   }
+  #myPieChart {
+    height: 200px !important;
+    width: 200px !important;
+}
 }
 @media (max-width: 425px) {
     .boarding {

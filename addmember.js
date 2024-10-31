@@ -4,7 +4,7 @@ const getQueryParam = (param) => {
     return urlParams.get(param);
 };
 
-// Function to open the "Add Member" modal
+
 function openAddMemberModal() {
     const boardId = getQueryParam('id'); 
     if (boardId) {
@@ -18,7 +18,6 @@ function openAddMemberModal() {
     clearForm();
 }
 
-// Function to clear the form and error messages
 function clearForm() {
     document.getElementById('memberUsername').value = ''; 
     const errorElement = document.getElementById("error");
@@ -26,28 +25,25 @@ function clearForm() {
     errorElement.style.display = 'none'; 
 }
 
-// Function to show an error message
+
 function showError(message) {
     const errorElement = document.getElementById("error");
     errorElement.textContent = message;
     errorElement.style.display = 'block'; 
 
-    // Hide the error message after 3 seconds
     setTimeout(() => {
         errorElement.style.display = 'none';
     }, 3000); 
 }
 
-// Event listener for when the DOM content is fully loaded
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Attach the openAddMemberModal function to the modal trigger
     const modalTrigger = document.querySelector('[data-bs-toggle="modal"]');
     if (modalTrigger) {
         modalTrigger.addEventListener('click', openAddMemberModal);
     }
 
-    // Handle the form submission for adding a member
     document.getElementById('addMemberForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         

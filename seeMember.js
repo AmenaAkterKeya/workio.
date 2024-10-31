@@ -34,7 +34,7 @@ function fetchBoardMembers(boardId) {
         return response.json();
     })
     .then(data => {
-        console.log('Response data:', data); // Log the response to inspect the data structure
+        
         if (data && data.members) {
             displayBoardMembers(data.members);
         } else {

@@ -32,12 +32,8 @@ const loadCustomUser = () => {
 async function fetchBoards() {
   const customuser_id = localStorage.getItem("customuser_id");
   const token = localStorage.getItem("token");
-
-  if (!customuser_id || !token) {
-      console.error('User ID or Token not found.');
-      return;
-  }
-
+  const loadingSpinner = document.getElementById("loading-spinner-map");
+  loadingSpinner.style.display = "block";
   try {
       const response = await fetch(`https://workio-theta.vercel.app/board/board/?customuser=${customuser_id}`, {
           headers: {
@@ -56,7 +52,7 @@ async function fetchBoards() {
           }
           throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      loadingSpinner.style.display = "none";
       const data = await response.json();
       const boardList = document.getElementById('boardList');
       boardList.innerHTML = '';

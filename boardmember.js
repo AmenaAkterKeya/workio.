@@ -43,22 +43,36 @@ function fetchBoards() {
 
 function displayBoards(boards) {
     const boardList = document.getElementById('boardList');
-    boardList.innerHTML = ''; 
+    const noDataDiv = document.getElementById('nodata_instructor');
 
+    boardList.innerHTML = '';
+
+    if (boards.length === 0) {
+        noDataDiv.style.display = "flex"; 
+        noDataDiv.style.justifyContent = 'center'; 
+        noDataDiv.style.alignItems = 'center'; 
+        boardList.style.display = "none"; 
+        return;
+    } else {
+        noDataDiv.style.display = "none";
+        boardList.style.display = "flex"; 
+    }
+
+   
     boards.forEach(board => {
-      
         const textColor = isLightColor(board.color) ? '#000000' : '#FFFFFF';
 
         const boardItem = document.createElement('li');
         boardItem.className = 'col-lg-3 col-md-4 col-sm-4 mb-3 d-flex align-items-stretch';
         boardItem.innerHTML = `
-           <a href="seeMember.html?id=${board.id}" class="card board" style="background-color: ${board.color}; color: ${textColor}">
-                      <span style="font-size: 20px; font-weight: 500; display: flex;">
-                          ${board.name.slice(0, 20)}..
-                      </span>
-                      <div style="font-weight: 500; display: flex;">Members: ${board.members_num}</div>
-                  </a>
+            <a href="seeMember.html?id=${board.id}" class="card board" style="background-color: ${board.color}; color: ${textColor}">
+                <span style="font-size: 20px; font-weight: 500; display: flex;">
+                    ${board.name.slice(0, 20)}..
+                </span>
+                <div style="font-weight: 500; display: flex;">Members: ${board.members_num}</div>
+            </a>
         `;
         boardList.appendChild(boardItem);
     });
 }
+
