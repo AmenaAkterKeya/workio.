@@ -1,63 +1,82 @@
-# Workio.
+# Workio
 
-Workio is a web platform designed to streamline project management and enhance collaboration among teams.
+**Workio** is a web platform designed to streamline project management and enhance team collaboration. With features for creating boards, lists, and cards, teams can organize tasks effectively, set priorities, and manage project workflows in a user-friendly environment.
 
-## Main Feature
+---
 
-- Users can register and log in securely.
-- Users can create boards, lists, and cards to organize tasks.
-- Admins and members can set card priorities and statuses.
-- Members can view and edit cards.
-- Admins can manage lists, cards, and view member details.
-- Responsive UI/UX design
+## Main Features
 
-## Technologies Used
+- **User Authentication**: Secure user registration and login.
+- **Task Organization**: Create boards, lists, and cards to organize and track tasks.
+- **Role-Based Permissions**: 
+  - **Admins**: Manage lists and cards, edit cards, and view member details.
+  - **Members**: View, and set priorities and statuses.
+- **Responsive UI/UX**: Optimized for use across devices.
 
-  ### Frontend Development
-      - HTML
-      - CSS
-      - Bootstrap
-      - JavaScript
-
-  ### Backend Development
-     - Python 3.x
-     - Django
-     - Django REST framework
-
-## Frontend Live Site
-
-- [Live Site URL](https://amenaakterkeya.github.io/workio./)
-
- ## Backend Live Site
-
-- [Live Link URL](https://workio-ypph.onrender.com/account/)
-
- ## API Endpoints (For Backend Projects)
+---
+## Features Details:
 
 ### User Management
-- **POST** `/api/account/register/` - Register a new user
-- **POST** `/api/account/login/` - User login
+- **User Registration**: New users can register an account via a registration link.
+- **User Login**: Existing users can log in using their credentials.
 
-### Board Browsing
-- **GET** `/api/board/board/` - List all boards
-- **GET** `/api/board/board/id/` - Get details of a specific board
-
-### List Management
-- **GET** `/api/board/list/` - View lists
-- **POST** `/api/board/list/` - Add a list
-- **PUT** `/api/board/board/board_id/list/list_id/` - Update a list
-- **DELETE** `/api/board/board/board_id/list/list_id/` - Remove a list
+### Board, List, and Card Management
+- **Create Board**: Users can create a board.
+- **Board Details**: Users can add members to a board and create lists.
+- **Add to Card**: Users can add cards to the lists.
 
 ### Card Management
-- **GET** `/api/board/card/` - View cards
-- **POST** `/api/board/list/list_id/card/` - Add a card
-- **PUT** `/api/board/card/card_id/` - Update a card
-- **DELETE** `/api/board/card/card_id/` - Remove a card
+- **Card Priority**: The board admin and added members can prioritize the card.
+- **Card Status**: Both the board admin and added members can set the card's status.
 
 ### Add Member Management
-- **POST** `/api/board/board/board_id/addmember/` - Add a member
-- **GET** `/api/board/member/board_id/` - View members
+- **View Board**: Added members can view the board.
+- **View List**: Added members can view the lists within the board.
+- **Edit and Delete a Card**: Added members can view, edit, and delete cards.
 
-### Running the App
-API: The server will be running on http://localhost:8000/api/
+### Board Admin Management
+- **Edit and Delete**: Admins can edit and delete lists and cards.
+- **View Board Member Details**: Admins can view details of every board member.
+- **View Total Boards and Members**: Admins can view all boards and all members.
+
+  
+## Technologies Used
+
+### Frontend
+- **HTML**: For structuring the web pages.
+- **CSS**: For styling the components and layout.
+- **JavaScript**: For interactivity and dynamic content.
+- **Bootstrap**: Responsive design framework for a mobile-first approach.
+
+
+---
+
+## Live Demo
+
+- **Frontend**: [Workio Frontend](https://amenaakterkeya.github.io/workio./index.html)
+- **Backend**: [Workio Backend](https://workio-theta.vercel.app/)
+
+---
+
+## Installation & Running the App
+
+### Prerequisites
+- A modern web browser (Chrome, Firefox, Safari, etc.)
+
+### Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/username/learnX_frontend.git
+   cd learnX_frontend
+   
+2. **Open the Project**:
+   ```bash
+   Open the `index.html` file in your preferred web browser to view the project.
+
+## License
+
+This project is licensed under the MIT License.
+This version includes all information within a single structured flow in `README.md`. It’s designed for easy access and readability for anyone interacting with the repository.
+
 
