@@ -120,7 +120,6 @@
 }
 .task_action{
     background-color: rgb(255, 255, 255);
-    background-image: url(/img/task.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
